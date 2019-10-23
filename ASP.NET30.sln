@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{362E68EE-653C-4B67-8324-77618E13461A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{881E83CE-B05A-4568-A438-B2AD079AC4CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{881E83CE-B05A-4568-A438-B2AD079AC4CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMVC", "WebMVC\WebMVC.csproj", "{8E194502-28F8-40AE-8361-2CCCA19772C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{DFFBADE3-EFD4-4663-9823-B2FDA60D31A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{362E68EE-653C-4B67-8324-77618E13461A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{362E68EE-653C-4B67-8324-77618E13461A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{362E68EE-653C-4B67-8324-77618E13461A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{362E68EE-653C-4B67-8324-77618E13461A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{881E83CE-B05A-4568-A438-B2AD079AC4CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{881E83CE-B05A-4568-A438-B2AD079AC4CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{881E83CE-B05A-4568-A438-B2AD079AC4CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{881E83CE-B05A-4568-A438-B2AD079AC4CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E194502-28F8-40AE-8361-2CCCA19772C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E194502-28F8-40AE-8361-2CCCA19772C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E194502-28F8-40AE-8361-2CCCA19772C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E194502-28F8-40AE-8361-2CCCA19772C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFFBADE3-EFD4-4663-9823-B2FDA60D31A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFFBADE3-EFD4-4663-9823-B2FDA60D31A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFFBADE3-EFD4-4663-9823-B2FDA60D31A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFFBADE3-EFD4-4663-9823-B2FDA60D31A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
