@@ -83,7 +83,7 @@ namespace DataAccessLayer
         }
         private static IDbDataParameter CreateMySqlParameter(string name, object value, DbType dbType, ParameterDirection direction)
         {
-            return new OracleParameter
+            return new MySqlParameter
             {
                 DbType = dbType,
                 ParameterName = name,
@@ -93,7 +93,7 @@ namespace DataAccessLayer
         }
         private static IDbDataParameter CreateMySqlParameter(string name, int size, object value, DbType dbType, ParameterDirection direction)
         {
-            return new OracleParameter
+            return new MySqlParameter
             {
                 DbType = dbType,
                 Size = size,
