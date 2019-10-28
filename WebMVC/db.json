@@ -1,0 +1,13 @@
+{
+  "DbConnection": {
+    "ConnectionString": {
+      "server": "45.81.5.21",
+      "port ": 3306,
+      "database": "dps",
+      "username ": "root",
+      "password": "mmttmhh",
+      "charset": "utf8"
+    },
+    "ProviderName": "MySql.Data.MySqlClient"
+  }
+}

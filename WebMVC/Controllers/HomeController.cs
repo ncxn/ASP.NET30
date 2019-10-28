@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using WebMVC.Models;
 
@@ -11,16 +12,21 @@ namespace WebMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        //private readonly ILogger<HomeController> _logger;
+        private readonly IConfiguration _configuration;
+        private string connectionString;
+        public HomeController(IConfiguration configuration)
         {
-            _logger = logger;
+            _configuration = configuration;
+
+            connectionString = _configuration["DbConnection:ProviderName"].ToLower();
         }
 
         public IActionResult Index()
         {
+            ViewData["Message"] = connectionString;
             return View();
+            //return connectionString;
         }
 
         public IActionResult Privacy()

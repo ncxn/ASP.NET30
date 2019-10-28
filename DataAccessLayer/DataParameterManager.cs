@@ -21,6 +21,8 @@ namespace DataAccessLayer
                     return CreateOracleParameter(name, value, dbType, direction);
                 case "mysql.data.mysqlclient":
                     return CreateMySqlParameter(name, value, dbType, direction);
+                default:
+                    break;
             }
             return parameter;
         }
@@ -35,7 +37,9 @@ namespace DataAccessLayer
                     return CreateOracleParameter(name, size, value, dbType, direction);
                 case "mysql.data.mysqlclient":
                     return CreateMySqlParameter(name, size, value, dbType, direction);
-             }
+                default:
+                    break;
+            }
             return parameter;
         }
         private static IDbDataParameter CreateSqlParameter(string name, object value, DbType dbType, ParameterDirection direction)

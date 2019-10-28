@@ -340,3 +340,8 @@ namespace DataAccessLayer
         }
     }
 }
+//Example:
+//var Db =  new DBManager(“DBConnection”);
+//var parameters = new List<IDbDataParameter>();
+//parameters.Add(Db.CreateParameter(“@FirstName”, 50, user.FirstName, DbType.String));
+//Db.Insert(“DAH_User_Insert”, CommandType.StoredProcedure, parameters.ToArray(), out lastId);

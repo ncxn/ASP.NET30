@@ -8,14 +8,14 @@ namespace DataAccessLayer
 {
     class MySqlDataAccess:IDatabaseHandler
     {
-        private string _ConnectionString { get; set; }
+        private string _connectionString { get; set; }
         public MySqlDataAccess(string connectionString)
         {
-            _ConnectionString = connectionString;
+            _connectionString = connectionString;
         }
         public IDbConnection CreateConnection()
         {
-            return new MySqlConnection(_ConnectionString);
+            return new MySqlConnection(_connectionString);
         }
         public void CloseConnection(IDbConnection connection)
         {
