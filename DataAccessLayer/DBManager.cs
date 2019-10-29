@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
@@ -7,12 +8,12 @@ namespace DataAccessLayer
 {
     public class DBManager
     {
-        private DatabaseHandlerFactory dbFactory;
-        private IDatabaseHandler database;
-        private string providerName;
-        public DBManager(string connectionStringName)
+        private readonly DatabaseHandlerFactory dbFactory;
+        private readonly IDatabaseHandler database;
+        private readonly string providerName;
+        public DBManager(IConfiguration config)
         {
-            dbFactory = new DatabaseHandlerFactory(connectionStringName);
+            dbFactory = new DatabaseHandlerFactory(config);
             database = dbFactory.CreateDatabase();
             providerName = dbFactory.GetProviderName();
         }
@@ -41,7 +42,6 @@ namespace DataAccessLayer
         {
             using (var connection = database.CreateConnection())
             {
-                connection.Open();
                 using (var command = database.CreateCommand(commandText, commandType, connection))
                 {
                     if (parameters != null)

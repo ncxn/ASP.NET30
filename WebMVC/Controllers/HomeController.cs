@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using DataAccessLayer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -13,19 +15,16 @@ namespace WebMVC.Controllers
     public class HomeController : Controller
     {
         //private readonly ILogger<HomeController> _logger;
-        private readonly IConfiguration _configuration;
-        private string connectionString;
-        public HomeController(IConfiguration configuration)
+        private readonly DBManager DB;
+        public HomeController(IConfiguration config)
         {
-            _configuration = configuration;
-
-            connectionString = _configuration["DbConnection:ProviderName"].ToLower();
+             DB = new DBManager(config);
         }
 
         public IActionResult Index()
         {
-            ViewData["Message"] = connectionString;
-            return View();
+            var users = DB.GetDataTable("procUsers_GetAll", CommandType.StoredProcedure);
+            return View(users);
             //return connectionString;
         }
 

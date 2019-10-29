@@ -5,24 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>@ViewData["Title"] - WebMVC</title>
     <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
-   
+    <link rel="stylesheet" href="/css/index.css">
 </head>
-<body class="h-vh-100">
-    <div data-role="navview">
+<body class="m4-cloak h-vh-100">
+    <div data-role="navview" data-toggle="#paneToggle" data-expanded="xl" data-compact="lg" data-active-state="true">
         <div class="navview-pane">
-            <button class="pull-button">
-                <span class="default-icon-menu"></span>
-            </button>
-            @await Html.PartialAsync("~/Views/Menu/_NavBarMenu.cshtml")
+            <div class="bg-cyan d-flex flex-align-center">
+                <button class="pull-button m-0 bg-darkCyan-hover">
+                    <span class="mif-menu fg-white"></span>
+                </button>
+                <h2 class="text-light m-0 fg-white pl-7" style="line-height: 52px">AdminCP</h2>
+            </div>
+            <div class="suggest-box">
+                <input type="text" data-role="input" data-clear-button="false" data-search-button="true">
+                <button class="holder">
+                    <span class="mif-search fg-white"></span>
+                </button>
+            </div>
+            @await Html.PartialAsync("~/Areas/Admin/Views/Menu/_AdminNavBarMenu.cshtml")
         </div>
         
-
-        <div class="navview-content d-flex flex-align-center flex-justify-center h-100">
-            @await Html.PartialAsync("~/Views/Menu/_AppBar.cshtml")
-            @RenderBody()
+        <div class="navview-content h-100">
+            @await Html.PartialAsync("~/Areas/Admin/Views/Menu/_AdminAppBar.cshtml")
+            <div id="content-wrapper" class="content-inner h-100" style="overflow-y: auto">
+                @RenderBody()
+            </div>
         </div>
     </div>
-    
+
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2019 - WebMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -30,6 +40,11 @@
     </footer>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+    <script src="/vendors/chartjs/Chart.bundle.min.js"></script>
+    <script src="/vendors/qrcode/qrcode.min.js"></script>
+    <script src="/vendors/jsbarcode/JsBarcode.all.min.js"></script>
+    <script src="/vendors/ckeditor/ckeditor.js"></script>
+    <script src="/js/index.js"></script>
     @*<script src="~/js/site.js" asp-append-version="true"></script>*@
     @*@RenderSection("Scripts", required: false)*@
 </body>
