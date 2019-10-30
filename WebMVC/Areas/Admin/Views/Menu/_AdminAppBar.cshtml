@@ -1,9 +1,10 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-<div data-role="appbar" class="pos-absolute bg-darkCyan fg-white">
-    <div class="app-bar-container ml-auto">
-        @await Html.PartialAsync("~/Areas/Admin/Views/Menu/_BagsMenu.cshtml")
-        @await Html.PartialAsync("~/Areas/Admin/Views/Menu/_AccountMenu.cshtml")
+    <div data-role="appbar" class="pos-absolute bg-darkCyan fg-white">
+        <a href="#" class="app-bar-item d-block d-none-lg" id="paneToggle"><span class="mif-menu"></span></a>
+        <div class="app-bar-container ml-auto">
+            @await Html.PartialAsync("~/Areas/Admin/Views/Menu/_BagsMenu.cshtml")
+            @await Html.PartialAsync("~/Areas/Admin/Views/Menu/_AccountMenu.cshtml")
+        </div>
     </div>
-</div>

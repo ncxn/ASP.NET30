@@ -10,7 +10,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using WebMVC.Models;
+using WebMVC.Services;
+using WebMVC.ViewModels;
 
 namespace WebMVC
 {
@@ -29,8 +31,9 @@ namespace WebMVC
             services.AddControllersWithViews();
             services.AddSession();
             services.AddSingleton(Configuration);
-            //services.AddDefaultIdentity<IdentityUser>();
-            //services.Configure<DbConnection>(Configuration.GetSection("DbConnection"));
+            //services.AddIdentity<Users, Roles>()
+            //        .AddDefaultTokenProviders();
+            services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
