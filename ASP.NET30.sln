@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{881E83CE-B05A-4568-A438-B2AD079AC4CE}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMVC", "WebMVC\WebMVC.csproj", "{8E194502-28F8-40AE-8361-2CCCA19772C8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csproj", "{DFFBADE3-EFD4-4663-9823-B2FDA60D31A5}"
@@ -15,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAcce
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfApp", "WpfApp\WpfApp.csproj", "{795E79FE-0F30-4263-BBB8-FF259CF2CA68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityHelper", "SecurityHelper\SecurityHelper.csproj", "{B085DFA9-8C5F-4D04-83B3-4C0249E322B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecurityHelper", "SecurityHelper\SecurityHelper.csproj", "{B085DFA9-8C5F-4D04-83B3-4C0249E322B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{B9F52E00-9721-48C6-A975-E53CEEC08FB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{881E83CE-B05A-4568-A438-B2AD079AC4CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{881E83CE-B05A-4568-A438-B2AD079AC4CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{881E83CE-B05A-4568-A438-B2AD079AC4CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{881E83CE-B05A-4568-A438-B2AD079AC4CE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8E194502-28F8-40AE-8361-2CCCA19772C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8E194502-28F8-40AE-8361-2CCCA19772C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E194502-28F8-40AE-8361-2CCCA19772C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +47,10 @@ Global
 		{B085DFA9-8C5F-4D04-83B3-4C0249E322B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B085DFA9-8C5F-4D04-83B3-4C0249E322B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B085DFA9-8C5F-4D04-83B3-4C0249E322B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9F52E00-9721-48C6-A975-E53CEEC08FB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9F52E00-9721-48C6-A975-E53CEEC08FB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9F52E00-9721-48C6-A975-E53CEEC08FB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9F52E00-9721-48C6-A975-E53CEEC08FB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
