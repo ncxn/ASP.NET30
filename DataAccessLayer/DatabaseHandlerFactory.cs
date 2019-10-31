@@ -1,38 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Configuration;
-using Microsoft.Extensions.Configuration;
 
 namespace DataAccessLayer
 {
     public class DatabaseHandlerFactory
     {
-        private readonly IConfiguration _config;
-        public DatabaseHandlerFactory(IConfiguration config)
+        private readonly string _connectionString;
+        private readonly string _provider;
+        public DatabaseHandlerFactory(string ConnectionString, string Provider)
         {
-            _config = config;
+            _connectionString = ConnectionString;
+            _provider = Provider.ToLower();
         }
         public IDatabaseHandler CreateDatabase()
         {
             IDatabaseHandler database = null;
-            switch (_config["DbConnection:ProviderName"].ToLower())
+            switch (_provider)
             {
                 case "system.data.sqlclient":
-                    database = new SqlDataAccess(_config["DbConnection:ConnectionString"]);
+                    database = new SqlDataAccess(_connectionString);
                     break;
                 case "oracle.manageddataaccess.client":
-                    database = new OracleDataAccess(_config["DbConnection:ConnectionString"]);
+                    database = new OracleDataAccess(_connectionString);
                     break;
                 case "mysql.data.mysqlclient":
-                    database = new MySqlDataAccess(_config["DbConnection:ConnectionString"]);
+                    database = new MySqlDataAccess(_connectionString);
                     break;
             }
             return database;
         }
-        public string GetProviderName()
+        public string GetProvider()
         {
-            return _config["DbConnection:ProviderName"];
+            return _provider;
         }
-    }
+     }
 }

@@ -26,7 +26,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\ViewModel\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Extensions\" />
   </ItemGroup>
 
 </Project>

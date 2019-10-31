@@ -12,11 +12,12 @@ namespace WebMVC.ViewModels
         public string Username { get; set; }
 
         [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Phải nhập mật khẩu")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember Me")]
+        [Display(Name = "Ghi nhớ")]
         public bool RememberMe { get; set; }
-        public string ReturnUrl { get; set; }
+        //public string ReturnUrl { get; set; }
 
     }
 }

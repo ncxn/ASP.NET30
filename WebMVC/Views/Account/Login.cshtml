@@ -1,15 +1,25 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+
+@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNetCore.Http
+@using WebMVC.ViewModels
+@using WebMVC.Controllers
+@model LoginViewModel
+
 <div class="cell-4 offset-4 border-1 border-info">
     <form class="bg-white p-4 border bd-default win-shadow"
-          action="javascript:"
+          action="@ViewData["ReturnUrl"]"
           data-role="validator"
           data-clear-invalid="2000"
-          data-on-error-form="invalidForm">
-            
+          data-on-error-form="invalidForm"
+          method="post"
+          id="AccountLoginForm">
+
         <div class="form-group">
-            <input type="email" data-role="materialinput"
+            <input type="text" data-role="materialinput"
                    placeholder="Enter your email"
                    data-icon="<span class='mif-envelop'>"
                    data-label="User email"
@@ -63,10 +73,11 @@
     </form>
 </div>
 
-<script>function invalidForm(){
-            var form  = $(this);
-            form.addClass("ani-ring");
-            setTimeout(function(){
-                form.removeClass("ani-ring");
-            }, 1000);
-        }</script>
+<script>
+    function invalidForm() {
+        var form = $(this);
+        form.addClass("ani-ring");
+        setTimeout(function () {
+            form.removeClass("ani-ring");
+        }, 1000);
+    }</script>

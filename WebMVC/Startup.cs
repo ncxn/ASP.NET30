@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebMVC.Extensions;
 using WebMVC.Models;
 using WebMVC.Services;
 using WebMVC.ViewModels;
@@ -31,29 +32,28 @@ namespace WebMVC
             services.AddControllersWithViews();
             services.AddSession();
             services.AddSingleton(Configuration);
-            //services.AddIdentity<Users, Roles>()
-            //        .AddDefaultTokenProviders();
-            services.AddTransient<IEmailSender, EmailSender>();
-            services.Configure<IdentityOptions>(options =>
-            {
-                // Password settings.
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 6;
-                options.Password.RequiredUniqueChars = 1;
 
-                // Lockout settings.
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-                options.Lockout.MaxFailedAccessAttempts = 5;
-                options.Lockout.AllowedForNewUsers = true;
+            // Add identity types
+            services.AddCustomizedIdentity(Configuration);
 
-                // User settings.
-                options.User.AllowedUserNameCharacters =
-                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-                options.User.RequireUniqueEmail = false;
-            });
+            //Database service by ADO.NET
+            var connectionString = Configuration.GetSection("DbConnection:ConnectionString").Value;
+            var provider = Configuration.GetSection("DbConnection:ProviderName").Value;
+            services.AddTransient(e => new DBManager(connectionString, provider));
+
+            //Messages service
+          
+        //services.AddTransient<IEmailSender, MessageServices>(implementation =>
+        //    new MessageServices(
+        //        this.Configuration["EmailSender:Host"],
+        //        this.Configuration.GetValue<int>("EmailSender:Port"),
+        //        this.Configuration.GetValue<bool>("EmailSender:EnableSSL"),
+        //        this.Configuration["EmailSender:UserName"],
+        //        this.Configuration["EmailSender:Password"],
+        //        this.Configuration["EmailSender:SenderEmail"]));
+            //services.AddTransient<ISmsSender, MessageServices>();
+
+            
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -91,6 +91,8 @@ namespace WebMVC
             app.UseAuthorization();
 
             app.UseAuthentication();
+            
+            app.UseCustomizedIdentity();
 
             app.UseEndpoints(endpoints =>
             {

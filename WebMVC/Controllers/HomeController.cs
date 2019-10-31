@@ -16,9 +16,9 @@ namespace WebMVC.Controllers
     {
         //private readonly ILogger<HomeController> _logger;
         private readonly DBManager DB;
-        public HomeController(IConfiguration config)
+        public HomeController(DBManager db)
         {
-             DB = new DBManager(config);
+             DB = db;
         }
 
         public IActionResult Index()

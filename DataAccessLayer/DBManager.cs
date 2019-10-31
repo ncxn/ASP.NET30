@@ -11,11 +11,11 @@ namespace DataAccessLayer
         private readonly DatabaseHandlerFactory dbFactory;
         private readonly IDatabaseHandler database;
         private readonly string providerName;
-        public DBManager(IConfiguration config)
+        public DBManager(string ConnectionString, string Provider)
         {
-            dbFactory = new DatabaseHandlerFactory(config);
+            dbFactory = new DatabaseHandlerFactory(ConnectionString, Provider);
             database = dbFactory.CreateDatabase();
-            providerName = dbFactory.GetProviderName();
+            providerName = dbFactory.GetProvider();
         }
         public IDbConnection GetDatabasecOnnection()
         {
@@ -81,7 +81,7 @@ namespace DataAccessLayer
         }
         public IDataReader GetDataReader(string commandText, CommandType commandType, IDbDataParameter[] parameters, out IDbConnection connection)
         {
-            IDataReader reader = null;
+            //IDataReader reader = null;
             connection = database.CreateConnection();
             connection.Open();
             var command = database.CreateCommand(commandText, commandType, connection);
@@ -92,7 +92,7 @@ namespace DataAccessLayer
                     command.Parameters.Add(parameter);
                 }
             }
-            reader = command.ExecuteReader();
+            IDataReader reader = command.ExecuteReader();
 
             return reader;
         }
