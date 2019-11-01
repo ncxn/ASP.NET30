@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
@@ -17,12 +19,12 @@ namespace DataAccessLayer
             database = dbFactory.CreateDatabase();
             providerName = dbFactory.GetProvider();
         }
-        public IDbConnection GetDatabasecOnnection()
+        public DbConnection GetDatabasecOnnection()
         {
             return database.CreateConnection();
         }
 
-        public void CloseConnection(IDbConnection connection)
+        public void CloseConnection(DbConnection connection)
         {
             database.CloseConnection(connection);
         }
@@ -38,45 +40,40 @@ namespace DataAccessLayer
         {
             return DataParameterManager.CreateParameter(providerName, name, size, value, dbType, direction);
         }
-        public DataTable GetDataTable(string commandText, CommandType commandType, IDbDataParameter[] parameters = null)
+
+        public async Task<DataTable> GetDataTableAsync(string commandText, CommandType commandType, IDbDataParameter[] parameters = null)
         {
-            using (var connection = database.CreateConnection())
+            using var connection = database.CreateConnection();
+            using var command = database.CreateCommand(commandText, commandType, connection);
+            if (parameters != null)
             {
-                using (var command = database.CreateCommand(commandText, commandType, connection))
+                foreach (var parameter in parameters)
                 {
-                    if (parameters != null)
-                    {
-                        foreach (var parameter in parameters)
-                        {
-                            command.Parameters.Add(parameter);
-                        }
-                    }
-                    var dataset = new DataSet();
-                    var dataAdaper = database.CreateAdapter(command);
-                    dataAdaper.Fill(dataset);
-                    return dataset.Tables[0];
+                    command.Parameters.Add(parameter);
                 }
             }
+            var ds = new DataSet();
+            var dataAdaper = database.CreateAdapter(command);
+            await Task.Run(() => { return dataAdaper.Fill(ds); });
+            return ds.Tables[0];
         }
         public DataSet GetDataSet(string commandText, CommandType commandType, IDbDataParameter[] parameters = null)
         {
-            using (var connection = database.CreateConnection())
+            using var connection = database.CreateConnection();
+            connection.Open();
+            using (var command = database.CreateCommand(commandText, commandType, connection))
             {
-                connection.Open();
-                using (var command = database.CreateCommand(commandText, commandType, connection))
+                if (parameters != null)
                 {
-                    if (parameters != null)
+                    foreach (var parameter in parameters)
                     {
-                        foreach (var parameter in parameters)
-                        {
-                            command.Parameters.Add(parameter);
-                        }
+                        command.Parameters.Add(parameter);
                     }
-                    var dataset = new DataSet();
-                    var dataAdaper = database.CreateAdapter(command);
-                    dataAdaper.Fill(dataset);
-                    return dataset;
                 }
+                var dataset = new DataSet();
+                var dataAdaper = database.CreateAdapter(command);
+                dataAdaper.Fill(dataset);
+                return dataset;
             }
         }
         public IDataReader GetDataReader(string commandText, CommandType commandType, IDbDataParameter[] parameters, out IDbConnection connection)
@@ -96,41 +93,20 @@ namespace DataAccessLayer
 
             return reader;
         }
-        public void Delete(string commandText, CommandType commandType, IDbDataParameter[] parameters = null)
+        
+        public async Task<int> ExecuteNonQueryAsync(string commandText, CommandType commandType, IDbDataParameter[] parameters)
         {
-            using (var connection = database.CreateConnection())
+            using var connection = database.CreateConnection();
+            connection.Open();
+            using var command = database.CreateCommand(commandText, commandType, connection);
+            if (parameters != null)
             {
-                connection.Open();
-                using (var command = database.CreateCommand(commandText, commandType, connection))
+                foreach (var parameter in parameters)
                 {
-                    if (parameters != null)
-                    {
-                        foreach (var parameter in parameters)
-                        {
-                            command.Parameters.Add(parameter);
-                        }
-                    }
-                    command.ExecuteNonQuery();
+                    command.Parameters.Add(parameter);
                 }
             }
-        }
-        public void Insert(string commandText, CommandType commandType, IDbDataParameter[] parameters)
-        {
-            using (var connection = database.CreateConnection())
-            {
-                connection.Open();
-                using (var command = database.CreateCommand(commandText, commandType, connection))
-                {
-                    if (parameters != null)
-                    {
-                        foreach (var parameter in parameters)
-                        {
-                            command.Parameters.Add(parameter);
-                        }
-                    }
-                    command.ExecuteNonQuery();
-                }
-            }
+            return await command.ExecuteNonQueryAsync();
         }
         public int Insert(string commandText, CommandType commandType, IDbDataParameter[] parameters, out int lastId)
         {

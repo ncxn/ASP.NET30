@@ -2,28 +2,29 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
+using System.Data.Common;
 using MySql.Data.MySqlClient;
 
 namespace DataAccessLayer
 {
-    class MySqlDataAccess:IDatabaseHandler
+    class MySqlDataAccess : IDatabaseHandler
     {
         private string _connectionString { get; set; }
         public MySqlDataAccess(string connectionString)
         {
             _connectionString = connectionString;
         }
-        public IDbConnection CreateConnection()
+        public DbConnection CreateConnection()
         {
             return new MySqlConnection(_connectionString);
         }
-        public void CloseConnection(IDbConnection connection)
+        public void CloseConnection(DbConnection connection)
         {
             var sqlConnection = (MySqlConnection)connection;
             sqlConnection.Close();
             sqlConnection.Dispose();
         }
-        public IDbCommand CreateCommand(string commandText, CommandType commandType, IDbConnection connection)
+        public DbCommand CreateCommand(string commandText, CommandType commandType, IDbConnection connection)
         {
             return new MySqlCommand
             {
@@ -32,11 +33,11 @@ namespace DataAccessLayer
                 CommandType = commandType
             };
         }
-        public IDataAdapter CreateAdapter(IDbCommand command)
+        public DataAdapter CreateAdapter(DbCommand command)
         {
             return new MySqlDataAdapter((MySqlCommand)command);
         }
-        public IDbDataParameter CreateParameter(IDbCommand command)
+        public IDbDataParameter CreateParameter(DbCommand command)
         {
             MySqlCommand SQLcommand = (MySqlCommand)command;
             return SQLcommand.CreateParameter();

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <ApplicationIcon></ApplicationIcon>
+    <ApplicationIcon>db.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

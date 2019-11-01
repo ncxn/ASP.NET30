@@ -10,15 +10,14 @@ using WebMVC.Models;
 namespace WebMVC.Provider
 {
 
-    public class UserStore:IUserStore<Users>,IUserPasswordStore<Users>
-
+    public class UserStore : IUserStore<Users>, IUserPasswordStore<Users>
     {
-        private readonly DBManager DB;
-        public UserStore(DBManager db)
-        {
-            DB = db;
-        }
+        private readonly UserData _usersTable;
 
+        public UserStore(UserData usersTable)
+        {
+            _usersTable = usersTable;
+        }
         public Task<IdentityResult> CreateAsync(Users user, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
@@ -31,7 +30,7 @@ namespace WebMVC.Provider
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            //Nothing to do throw new NotImplementedException();
         }
 
         public Task<Users> FindByIdAsync(string userId, CancellationToken cancellationToken)
@@ -39,10 +38,15 @@ namespace WebMVC.Provider
             throw new NotImplementedException();
         }
 
-        public Task<Users> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
+        public async Task<Users> FindByNameAsync(string userName,
+             CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            cancellationToken.ThrowIfCancellationRequested();
+            if (userName == null) throw new ArgumentNullException(nameof(userName));
+
+            return await _usersTable.FindByNameAsync(userName);
         }
+
 
         public Task<string> GetNormalizedUserNameAsync(Users user, CancellationToken cancellationToken)
         {

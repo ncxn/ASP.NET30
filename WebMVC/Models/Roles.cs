@@ -2,7 +2,7 @@
 
 namespace WebMVC.Models
 {
-    public class Roles
+    public class Roles: IdentityRole
     {
         public string Role_name { get; set; }
 

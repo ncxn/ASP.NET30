@@ -29,7 +29,7 @@ namespace WebMVC.Extensions
                 .AddRoleStore<RoleStore>()
                 .AddUserStore<UserStore>()
                 .AddDefaultTokenProviders();
-
+            services.AddTransient<UserData>();
             //services.AddIdentityServer(options =>
             //{
             //    options.Events.RaiseErrorEvents = true;

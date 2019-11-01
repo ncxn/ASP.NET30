@@ -15,15 +15,15 @@ namespace WebMVC.Controllers
     public class HomeController : Controller
     {
         //private readonly ILogger<HomeController> _logger;
-        private readonly DBManager DB;
-        public HomeController(DBManager db)
+        private readonly MySqlHelper AppDb;
+        public HomeController(MySqlHelper _AppDb)
         {
-             DB = db;
+            AppDb = _AppDb;
         }
 
         public IActionResult Index()
         {
-            var users = DB.GetDataTable("procUsers_GetAll", CommandType.StoredProcedure);
+            var users = AppDb.GetDataTable("procUsers_GetAll", CommandType.StoredProcedure);
             return View(users);
             //return connectionString;
         }

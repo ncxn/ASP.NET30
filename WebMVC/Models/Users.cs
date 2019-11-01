@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WebMVC.Models
 {
-    public class Users
+    public class Users: IdentityUser
     {
         public int User_id { get; set; }
         public string User_name { get; set; }

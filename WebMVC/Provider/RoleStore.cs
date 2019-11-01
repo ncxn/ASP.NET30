@@ -11,8 +11,8 @@ namespace WebMVC.Provider
 {
     public class RoleStore: IRoleStore<Roles>
     {
-        private readonly DBManager DB;
-        public RoleStore(DBManager db)
+        private readonly MySqlHelper DB;
+        public RoleStore(MySqlHelper db)
         {
             DB = db;
         }
@@ -29,7 +29,7 @@ namespace WebMVC.Provider
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            //nothing to do: throw new NotImplementedException();
         }
 
         public Task<Roles> FindByIdAsync(string roleId, CancellationToken cancellationToken)

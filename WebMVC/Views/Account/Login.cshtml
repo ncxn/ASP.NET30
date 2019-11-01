@@ -11,7 +11,7 @@
 
 <div class="cell-4 offset-4 border-1 border-info">
     <form class="bg-white p-4 border bd-default win-shadow"
-          action="@ViewData["ReturnUrl"]"
+          action=""
           data-role="validator"
           data-clear-invalid="2000"
           data-on-error-form="invalidForm"
@@ -20,6 +20,7 @@
 
         <div class="form-group">
             <input type="text" data-role="materialinput"
+                   name="Username"
                    placeholder="Enter your email"
                    data-icon="<span class='mif-envelop'>"
                    data-label="User email"
@@ -33,6 +34,7 @@
         </div>
         <div class="form-group">
             <input type="password" data-role="materialinput"
+                   name="Password"
                    placeholder="Enter your password"
                    data-icon="<span class='mif-key'>"
                    data-label="PassWord"
@@ -80,4 +82,5 @@
         setTimeout(function () {
             form.removeClass("ani-ring");
         }, 1000);
-    }</script>
+    }
+</script>

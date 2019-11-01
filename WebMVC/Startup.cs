@@ -38,22 +38,21 @@ namespace WebMVC
 
             //Database service by ADO.NET
             var connectionString = Configuration.GetSection("DbConnection:ConnectionString").Value;
-            var provider = Configuration.GetSection("DbConnection:ProviderName").Value;
-            services.AddTransient(e => new DBManager(connectionString, provider));
+            services.AddTransient(e => new MySqlHelper(connectionString));
 
             //Messages service
-          
-        //services.AddTransient<IEmailSender, MessageServices>(implementation =>
-        //    new MessageServices(
-        //        this.Configuration["EmailSender:Host"],
-        //        this.Configuration.GetValue<int>("EmailSender:Port"),
-        //        this.Configuration.GetValue<bool>("EmailSender:EnableSSL"),
-        //        this.Configuration["EmailSender:UserName"],
-        //        this.Configuration["EmailSender:Password"],
-        //        this.Configuration["EmailSender:SenderEmail"]));
+
+            //services.AddTransient<IEmailSender, MessageServices>(implementation =>
+            //    new MessageServices(
+            //        this.Configuration["EmailSender:Host"],
+            //        this.Configuration.GetValue<int>("EmailSender:Port"),
+            //        this.Configuration.GetValue<bool>("EmailSender:EnableSSL"),
+            //        this.Configuration["EmailSender:UserName"],
+            //        this.Configuration["EmailSender:Password"],
+            //        this.Configuration["EmailSender:SenderEmail"]));
             //services.AddTransient<ISmsSender, MessageServices>();
 
-            
+
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -91,7 +90,7 @@ namespace WebMVC
             app.UseAuthorization();
 
             app.UseAuthentication();
-            
+
             app.UseCustomizedIdentity();
 
             app.UseEndpoints(endpoints =>
