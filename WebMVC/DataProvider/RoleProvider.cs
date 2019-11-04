@@ -1,25 +1,31 @@
-﻿using DataAccessLayer;
+﻿using System;
+using System.Data;
+using DataAccessLayer;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using MySql.Data.MySqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 using WebMVC.Models;
 
-namespace WebMVC.Provider
+namespace WebMVC.DataProvider
 {
-    public class RoleStore: IRoleStore<Roles>
+    public class RoleProvider: IRoleStore<Roles>
     {
-        private readonly MySqlHelper DB;
-        public RoleStore(MySqlHelper db)
+        private readonly MySqlAppDb DB;
+        private Roles Roles { get; set; }
+        public RoleProvider(MySqlAppDb db)
         {
             DB = db;
         }
 
-        public Task<IdentityResult> CreateAsync(Roles role, CancellationToken cancellationToken)
+        public async Task<IdentityResult> CreateAsync(Roles role, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var cmd = DB.Connection.CreateCommand() as MySqlCommand;
+            cmd.CommandText = "usp_tblRole_Insert";
+            BindParams(cmd);
+            await cmd.ExecuteNonQueryAsync();
+            //Id = (int)cmd.LastInsertedId;
+            return IdentityResult.Success;
         }
 
         public Task<IdentityResult> DeleteAsync(Roles role, CancellationToken cancellationToken)
@@ -70,6 +76,21 @@ namespace WebMVC.Provider
         public Task<IdentityResult> UpdateAsync(Roles role, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
+        }
+        private void BindParams(MySqlCommand cmd)
+        {
+            cmd.Parameters.Add(new MySqlParameter
+            {
+                ParameterName = "@p_role_name",
+                DbType = DbType.String,
+                Value = Roles.Role_name,
+            });
+            cmd.Parameters.Add(new MySqlParameter
+            {
+                ParameterName = "@p_role_description",
+                DbType = DbType.String,
+                Value = Roles.Role_description,
+            });
         }
     }
 }

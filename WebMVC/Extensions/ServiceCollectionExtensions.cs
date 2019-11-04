@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebMVC.DataProvider;
 using WebMVC.Models;
-using WebMVC.Provider;
 
 namespace WebMVC.Extensions
 {
@@ -26,10 +21,10 @@ namespace WebMVC.Extensions
                     options.Password.RequiredUniqueChars = 0;
                     //options.ClaimsIdentity.UserNameClaimType = JwtRegisteredClaimNames.Sub;
                 })
-                .AddRoleStore<RoleStore>()
-                .AddUserStore<UserStore>()
+                .AddRoleStore<RoleProvider>()
+                .AddUserStore<UserProvidercs>()
                 .AddDefaultTokenProviders();
-            services.AddTransient<UserData>();
+            //services.AddTransient<UserData>();
             //services.AddIdentityServer(options =>
             //{
             //    options.Events.RaiseErrorEvents = true;

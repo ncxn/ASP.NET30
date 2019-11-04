@@ -32,14 +32,13 @@ namespace WebMVC
         {
             services.AddControllersWithViews();
             services.AddSession();
-            services.AddSingleton(Configuration);
-
+           
             // Add identity types
             services.AddCustomizedIdentity(Configuration);
 
             //Database service by ADO.NET
             var connectionString = Configuration.GetSection("DbConnection:ConnectionString").Value;
-            services.AddTransient(e => new MySqlHelper(connectionString));
+            services.AddTransient(e => new MySqlAppDb(connectionString));
 
             //Messages service
 

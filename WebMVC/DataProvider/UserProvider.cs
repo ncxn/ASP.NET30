@@ -1,22 +1,23 @@
-﻿using DataAccessLayer;
+﻿using System;
+using DataAccessLayer;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using WebMVC.Models;
+using System.Data.Common;
+using System.Collections.Generic;
+using MySql.Data.MySqlClient;
 
-namespace WebMVC.Provider
+namespace WebMVC.DataProvider
 {
 
-    public class UserStore : IUserStore<Users>, IUserPasswordStore<Users>
+    public class UserProvidercs : IUserStore<Users>, IUserPasswordStore<Users>
     {
-        private readonly UserData _usersTable;
+        private readonly MySqlAppDb DB;
 
-        public UserStore(UserData usersTable)
+        public UserProvidercs(MySqlAppDb db)
         {
-            _usersTable = usersTable;
+            DB = db;
         }
         public Task<IdentityResult> CreateAsync(Users user, CancellationToken cancellationToken)
         {
@@ -38,13 +39,12 @@ namespace WebMVC.Provider
             throw new NotImplementedException();
         }
 
-        public async Task<Users> FindByNameAsync(string userName,
-             CancellationToken cancellationToken = default)
+        public Task<Users> FindByNameAsync(string userName, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
             if (userName == null) throw new ArgumentNullException(nameof(userName));
 
-            return await _usersTable.FindByNameAsync(userName);
+            throw new NotImplementedException();
         }
 
 
@@ -91,6 +91,39 @@ namespace WebMVC.Provider
         public Task<IdentityResult> UpdateAsync(Users user, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
+        }
+        public async Task<List<Users>> GetUsersAsync()
+        {
+            var cmd = DB.Connection.CreateCommand() as MySqlCommand;
+            cmd.CommandText = "procUsers_GetAll";
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            //BindParams(cmd);
+            var rs = await ReadAllAsync(await cmd.ExecuteReaderAsync());
+            return rs;
+        }
+        private async Task<List<Users>> ReadAllAsync(DbDataReader reader)
+        {
+            var UserList = new List<Users>();
+            using (reader)
+            {
+                while (await reader.ReadAsync())
+                {
+                    var u = new Users()
+                    {
+                        User_id = await reader.GetFieldValueAsync<int>(0),
+                        User_name = await reader.GetFieldValueAsync<string>(1),
+                        User_first_name = await reader.GetFieldValueAsync<string>(2),
+                        User_last_name = await reader.GetFieldValueAsync<string>(3),
+                        User_password = await reader.GetFieldValueAsync<string>(4),
+                        User_status = await reader.GetFieldValueAsync<int>(5),
+                        User_created_at = await reader.GetFieldValueAsync<DateTime>(6),
+                        User_updated_at = await reader.GetFieldValueAsync<DateTime>(7)
+                    };
+                    UserList.Add(u);
+                }
+            }
+            return UserList;
         }
     }
 }

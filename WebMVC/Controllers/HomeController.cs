@@ -1,31 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using DataAccessLayer;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using WebMVC.Models;
+using WebMVC.DataProvider;
 
 namespace WebMVC.Controllers
 {
     public class HomeController : Controller
     {
         //private readonly ILogger<HomeController> _logger;
-        private readonly MySqlHelper AppDb;
-        public HomeController(MySqlHelper _AppDb)
+        private readonly MySqlAppDb DB;
+        public HomeController(MySqlAppDb db)
         {
-            AppDb = _AppDb;
+            DB = db;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var users = AppDb.GetDataTable("procUsers_GetAll", CommandType.StoredProcedure);
-            return View(users);
-            //return connectionString;
+            using (var userProvider = new UserProvidercs(DB))
+            {
+                
+                var user = await userProvider.GetUsersAsync();
+                return View(user);
+            }
         }
 
         public IActionResult Privacy()
