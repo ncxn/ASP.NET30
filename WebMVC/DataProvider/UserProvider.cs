@@ -7,18 +7,17 @@ using WebMVC.Models;
 using System.Data.Common;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
+using System.Data;
 
 namespace WebMVC.DataProvider
 {
 
-    public class UserProvidercs : IUserStore<Users>, IUserPasswordStore<Users>
+    public class UserProvider : DataProviderBase, IUserStore<Users>, IUserPasswordStore<Users>
     {
-        private readonly MySqlAppDb DB;
-
-        public UserProvidercs(MySqlAppDb db)
+        public UserProvider(MySqlAppDb db) : base(db)
         {
-            DB = db;
         }
+
         public Task<IdentityResult> CreateAsync(Users user, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
@@ -92,38 +91,10 @@ namespace WebMVC.DataProvider
         {
             throw new NotImplementedException();
         }
-        public async Task<List<Users>> GetUsersAsync()
+        public async Task<DataTable> GetUsersAsync()
         {
-            var cmd = DB.Connection.CreateCommand() as MySqlCommand;
-            cmd.CommandText = "procUsers_GetAll";
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-            //BindParams(cmd);
-            var rs = await ReadAllAsync(await cmd.ExecuteReaderAsync());
-            return rs;
+           return await GetDataTable("procUsers_GetAll", System.Data.CommandType.StoredProcedure);
         }
-        private async Task<List<Users>> ReadAllAsync(DbDataReader reader)
-        {
-            var UserList = new List<Users>();
-            using (reader)
-            {
-                while (await reader.ReadAsync())
-                {
-                    var u = new Users()
-                    {
-                        User_id = await reader.GetFieldValueAsync<int>(0),
-                        User_name = await reader.GetFieldValueAsync<string>(1),
-                        User_first_name = await reader.GetFieldValueAsync<string>(2),
-                        User_last_name = await reader.GetFieldValueAsync<string>(3),
-                        User_password = await reader.GetFieldValueAsync<string>(4),
-                        User_status = await reader.GetFieldValueAsync<int>(5),
-                        User_created_at = await reader.GetFieldValueAsync<DateTime>(6),
-                        User_updated_at = await reader.GetFieldValueAsync<DateTime>(7)
-                    };
-                    UserList.Add(u);
-                }
-            }
-            return UserList;
-        }
+        
     }
 }

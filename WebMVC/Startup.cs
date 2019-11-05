@@ -38,7 +38,7 @@ namespace WebMVC
 
             //Database service by ADO.NET
             var connectionString = Configuration.GetSection("DbConnection:ConnectionString").Value;
-            services.AddTransient(e => new MySqlAppDb(connectionString));
+            services.AddTransient<MySqlAppDb>(_ => new MySqlAppDb(connectionString));
 
             //Messages service
 

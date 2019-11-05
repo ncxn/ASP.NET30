@@ -22,7 +22,7 @@ namespace WebMVC.Extensions
                     //options.ClaimsIdentity.UserNameClaimType = JwtRegisteredClaimNames.Sub;
                 })
                 .AddRoleStore<RoleProvider>()
-                .AddUserStore<UserProvidercs>()
+                .AddUserStore<UserProvider>()
                 .AddDefaultTokenProviders();
             //services.AddTransient<UserData>();
             //services.AddIdentityServer(options =>
