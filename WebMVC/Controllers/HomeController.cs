@@ -5,6 +5,7 @@ using DataAccessLayer;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Models;
 using WebMVC.DataProvider;
+using System.Collections.Generic;
 
 namespace WebMVC.Controllers
 {
@@ -20,7 +21,7 @@ namespace WebMVC.Controllers
         public async Task<IActionResult> Index()
         {
             using var userProvider = new UserProvider(Db);
-            var user = await userProvider.GetUsersAsync();
+             var user = await userProvider.GetUsersAsync();
             return View(user);
         }
         [HttpDelete("{userName}")]

@@ -105,7 +105,6 @@ namespace WebMVC.DataProvider
                 cmd.CommandType = commandType;
                 if (parameters != null)
                     cmd.Parameters.AddRange(parameters.ToArray());
-
                 result = await cmd.ExecuteNonQueryAsync();
                 await txn.CommitAsync();
             }
