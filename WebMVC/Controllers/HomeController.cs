@@ -20,17 +20,14 @@ namespace WebMVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            using var userProvider = new UserProvider(Db);
-             var user = await userProvider.GetUsersAsync();
-            return View(user);
+            //UserProvider userProvider = new UserProvider(Db);
+            //var user = await userProvider.GetUsersAsync();
+            return View();
         }
         [HttpDelete("{userName}")]
-        public async Task<IActionResult> Delete(string userName)
+        public IActionResult Delete(string userName)
         {
-            using var userProvider = new UserProvider(Db);
-            var user = await userProvider.GetUsersAsync();
-           
-            return new OkResult();
+            return View();
         }
 
         public IActionResult Privacy()

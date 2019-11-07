@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataAccessLayer;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -32,9 +33,12 @@ namespace WebMVC
         {
             services.AddControllersWithViews();
             services.AddSession();
-           
+
             // Add identity types
-            services.AddCustomizedIdentity(Configuration);
+            //services.AddCustomizedIdentity(Configuration);
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie();
+            services.AddHttpContextAccessor();
 
             //Database service by ADO.NET
             var connectionString = Configuration.GetSection("DbConnection:ConnectionString").Value;
@@ -96,7 +100,7 @@ namespace WebMVC
 
             app.UseAuthentication();
 
-            app.UseCustomizedIdentity();
+            //app.UseCustomizedIdentity();
 
             app.UseEndpoints(endpoints =>
             {

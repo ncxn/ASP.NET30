@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WebMVC.ViewModels
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage ="Phải nhập tên đăng nhập")]
-        public string Username { get; set; }
+        [Display(Name = "Thư điện tử")]
+        [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage ="Phải nhập Email")]
+        public string Email { get; set; }
 
+        [Display(Name = "Mật khẩu")]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Phải nhập mật khẩu")]
         public string Password { get; set; }
 
         [Display(Name = "Ghi nhớ")]
         public bool RememberMe { get; set; }
-        //public string ReturnUrl { get; set; }
-
+        
+        public string ReturnUrl { get; set; }
     }
 }

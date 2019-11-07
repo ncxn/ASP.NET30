@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SecurityHelper
 {
-    public class Encryptor
+    public static class Encryptor
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0067:Dispose objects before losing scope", Justification = "<Pending>")]
         public static string Md5(string input)

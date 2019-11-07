@@ -8,14 +8,34 @@ using System.Data.Common;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Linq;
 
 namespace WebMVC.DataProvider
 {
-
-    public class UserProvider : DataProviderBase, IUserStore<Users>, IUserPasswordStore<Users>
+    public class UserProvider : DataProviderBase
     {
+        private List<Users> userColection;
+
         public UserProvider(MySqlAppDb db) : base(db)
         {
+            GetUserAsync();
+        }
+
+        private async void GetUserAsync()
+        {
+            var UserCls = new List<Users>();
+            var reader = await GetDataReader("procUsers_GetAll", System.Data.CommandType.StoredProcedure);
+            while (await reader.ReadAsync())
+            {
+                var user = new Users()
+                {
+                    User_name = await reader.GetFieldValueAsync<string>(0),
+                    User_first_name = await reader.GetFieldValueAsync<string>(1),
+                    User_last_name = await reader.GetFieldValueAsync<string>(2)
+                };
+                UserCls.Add(user);
+            }
+            userColection = UserCls;
         }
 
         public Task<IdentityResult> CreateAsync(Users user, CancellationToken cancellationToken)
@@ -38,12 +58,18 @@ namespace WebMVC.DataProvider
             throw new NotImplementedException();
         }
 
-        public Task<Users> FindByNameAsync(string userName, CancellationToken cancellationToken)
+        public async Task<Users> FindByNameAsync(string userName, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
             if (userName == null) throw new ArgumentNullException(nameof(userName));
+            var user = await Task.Run(() => userColection.SingleOrDefault(x => x.User_name == userName));
+            
+            if (user == null)
+                return null;
 
-            throw new NotImplementedException();
+            
+            user.User_password = null;
+            return user;
         }
 
 
@@ -93,8 +119,7 @@ namespace WebMVC.DataProvider
         }
         public async Task<DataTable> GetUsersAsync()
         {
-           return await GetDataTable("procUsers_GetAll", System.Data.CommandType.StoredProcedure);
+            return await GetDataTable("procUsers_GetAll", System.Data.CommandType.StoredProcedure);
         }
-        
     }
 }

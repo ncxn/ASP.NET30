@@ -9,71 +9,72 @@
 @using WebMVC.Controllers
 @model LoginViewModel
 
-<div class="cell-4 offset-4 border-1 border-info">
-    <form class="bg-white p-4 border bd-default win-shadow"
-          action=""
-          data-role="validator"
-          data-clear-invalid="2000"
-          data-on-error-form="invalidForm"
-          method="post"
-          id="AccountLoginForm">
+    <div class="cell-4 offset-4 border-1 border-info">
+        @ViewData["Message"]
+        <form class="bg-white p-4 border bd-default win-shadow"
+              action=""
+              data-role="validator"
+              data-clear-invalid="2000"
+              data-on-error-form="invalidForm"
+              method="post"
+              id="AccountLoginForm">
 
-        <div class="form-group">
-            <input type="text" data-role="materialinput"
-                   name="Username"
-                   placeholder="Enter your email"
-                   data-icon="<span class='mif-envelop'>"
-                   data-label="User email"
-                   data-informer="Enter a valid email address"
-                   data-validate="required"
-                   data-cls-line="bg-cyan"
-                   data-cls-label="fg-cyan"
-                   data-cls-informer="fg-lightCyan"
-                   data-cls-icon="fg-darkCyan">
-            <span class="invalid_feedback">Please enter a valid email address</span>
-        </div>
-        <div class="form-group">
-            <input type="password" data-role="materialinput"
-                   name="Password"
-                   placeholder="Enter your password"
-                   data-icon="<span class='mif-key'>"
-                   data-label="PassWord"
-                   data-informer="Enter a valid password"
-                   data-validate="required"
-                   data-cls-line="bg-cyan"
-                   data-cls-label="fg-cyan"
-                   data-cls-informer="fg-lightCyan"
-                   data-cls-icon="fg-darkCyan">
-            <span class="invalid_feedback">Please enter a password</span>
-        </div>
-        <div class="form-group d-flex flex-align-center flex-justify-between">
-            <input type="checkbox" data-role="switch" data-material="true" data-caption="Ghi nhớ đăng nhập">
-            <button class="image-button flat-button">
-                <span class="mif-enter icon"></span>
-                <span class="caption">Đăng nhập</span>
-            </button>
-        </div>
-        <div class="text-center m-4">- OR -</div>
-        <div class="form-group">
-            <button class="image-button w-100 mt-1 bg-facebook fg-white" type="button">
-                <span class="mif-facebook icon"></span>
-                <span class="caption">Sign In using Facebook</span>
-            </button>
-            <button class="image-button w-100 mt-1 bg-github fg-white" type="button">
-                <span class="mif-github icon"></span>
-                <span class="caption">Sign In using GitHub</span>
-            </button>
-            <button class="image-button w-100 mt-1 bg-gitlab fg-white" type="button">
-                <span class="mif-gitlab icon"></span>
-                <span class="caption">Sign In using GitLab</span>
-            </button>
-        </div>
-        <div class="form-group border-top bd-default pt-2">
-            <a href="#" class="d-block">I forgot my password</a>
-            <a href="#" class="d-block">Register a new membership</a>
-        </div>
-    </form>
-</div>
+            <div class="form-group">
+                <input type="text" data-role="materialinput"
+                       name="Email"
+                       placeholder="Enter your email"
+                       data-icon="<span class='mif-envelop'>"
+                       data-label="User email"
+                       data-informer="Enter a valid email address"
+                       data-validate="required"
+                       data-cls-line="bg-cyan"
+                       data-cls-label="fg-cyan"
+                       data-cls-informer="fg-lightCyan"
+                       data-cls-icon="fg-darkCyan">
+                <span class="invalid_feedback">Please enter a valid email address</span>
+            </div>
+            <div class="form-group">
+                <input type="password" data-role="materialinput"
+                       name="Password"
+                       placeholder="Enter your password"
+                       data-icon="<span class='mif-key'>"
+                       data-label="PassWord"
+                       data-informer="Enter a valid password"
+                       data-validate="required"
+                       data-cls-line="bg-cyan"
+                       data-cls-label="fg-cyan"
+                       data-cls-informer="fg-lightCyan"
+                       data-cls-icon="fg-darkCyan">
+                <span class="invalid_feedback">Please enter a password</span>
+            </div>
+            <div class="form-group d-flex flex-align-center flex-justify-between">
+                <input type="checkbox" data-role="switch" data-material="true" data-caption="Ghi nhớ đăng nhập">
+                <button class="image-button flat-button">
+                    <span class="mif-enter icon"></span>
+                    <span class="caption">Đăng nhập</span>
+                </button>
+            </div>
+            <div class="text-center m-4">- OR -</div>
+            <div class="form-group">
+                <button class="image-button w-100 mt-1 bg-facebook fg-white" type="button">
+                    <span class="mif-facebook icon"></span>
+                    <span class="caption">Sign In using Facebook</span>
+                </button>
+                <button class="image-button w-100 mt-1 bg-github fg-white" type="button">
+                    <span class="mif-github icon"></span>
+                    <span class="caption">Sign In using GitHub</span>
+                </button>
+                <button class="image-button w-100 mt-1 bg-gitlab fg-white" type="button">
+                    <span class="mif-gitlab icon"></span>
+                    <span class="caption">Sign In using GitLab</span>
+                </button>
+            </div>
+            <div class="form-group border-top bd-default pt-2">
+                <a href="#" class="d-block">I forgot my password</a>
+                <a href="#" class="d-block">Register a new membership</a>
+            </div>
+        </form>
+    </div>
 
 <script>
     function invalidForm() {
