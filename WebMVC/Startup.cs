@@ -45,19 +45,7 @@ namespace WebMVC
             services.AddTransient(_ => new MySqlAppDb(connectionString));
 
             //Messages service
-
-            //services.AddTransient<IEmailSender, MessageServices>(implementation =>
-            //    new MessageServices(
-            //        this.Configuration["EmailSender:Host"],
-            //        this.Configuration.GetValue<int>("EmailSender:Port"),
-            //        this.Configuration.GetValue<bool>("EmailSender:EnableSSL"),
-            //        this.Configuration["EmailSender:UserName"],
-            //        this.Configuration["EmailSender:Password"],
-            //        this.Configuration["EmailSender:SenderEmail"]));
-            //services.AddTransient<ISmsSender, MessageServices>();
-
-
-
+            
             services.ConfigureApplicationCookie(options =>
             {
                 // Cookie settings

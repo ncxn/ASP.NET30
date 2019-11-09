@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Text;
 
 namespace DataAccessLayer
 {
-    class SQLiteAppDb: IDisposable
+    public class SQLiteAppDb: IDisposable
     {
         public SQLiteConnection Connection;
         public SQLiteAppDb(string connectionString)

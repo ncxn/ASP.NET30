@@ -48,7 +48,7 @@ namespace WebMVC.DataProvider
                 throw new Exception("Invalid parameter");
             }
         }
-        public async Task<DataTable> GetDataTable(string commandText, CommandType commandType, List<MySqlParameter> parameters = null)
+        public async Task<DataTable> GetDataTableAsync(string commandText, CommandType commandType, List<MySqlParameter> parameters = null)
         {
             await Db.Connection.OpenAsync();
             using var cmd = Db.Connection.CreateCommand();
@@ -61,7 +61,7 @@ namespace WebMVC.DataProvider
             adapter.Fill(dt);
             return dt;
         }
-        public async Task<DbDataReader> GetDataReader(string commandText, CommandType commandType, List<MySqlParameter> parameters = null)
+        public async Task<DbDataReader> GetDataReaderAsync(string commandText, CommandType commandType, List<MySqlParameter> parameters = null)
         {
             using var cmd = Db.Connection.CreateCommand();
             cmd.CommandText = commandText;
@@ -71,7 +71,7 @@ namespace WebMVC.DataProvider
             await Db.Connection.OpenAsync();
             return await cmd.ExecuteReaderAsync();
         }
-        public async Task<object> GetScalarValue(string commandText, CommandType commandType, List<MySqlParameter> parameters = null)
+        public async Task<object> GetScalarValueAsync(string commandText, CommandType commandType, List<MySqlParameter> parameters = null)
         {
             using var cmd = Db.Connection.CreateCommand();
             cmd.CommandText = commandText;
@@ -81,7 +81,7 @@ namespace WebMVC.DataProvider
             await Db.Connection.OpenAsync();
             return await cmd.ExecuteScalarAsync();
         }
-        public async Task<int> ExecuteNonQuery(string commandText, CommandType commandType, List<MySqlParameter> parameters = null)
+        public async Task<int> ExecuteNonQueryAsync(string commandText, CommandType commandType, List<MySqlParameter> parameters = null)
         {
             int result = 0;
             using var cmd = Db.Connection.CreateCommand();
@@ -93,7 +93,7 @@ namespace WebMVC.DataProvider
             result = await cmd.ExecuteNonQueryAsync();
             return result;
         }
-        public async Task<int> ExecuteNonQueryWithTransaction(string commandText, CommandType commandType, List<MySqlParameter> parameters = null)
+        public async Task<int> ExecuteNonQueryWithTransactionAsync(string commandText, CommandType commandType, List<MySqlParameter> parameters = null)
         {
             int result;
             await Db.Connection.OpenAsync();

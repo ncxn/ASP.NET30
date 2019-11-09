@@ -24,7 +24,7 @@ namespace WebMVC.DataProvider
         private async void GetUserAsync()
         {
             var UserCls = new List<Users>();
-            var reader = await GetDataReader("procUsers_GetAll", System.Data.CommandType.StoredProcedure);
+            var reader = await GetDataReaderAsync("procUsers_GetAll", System.Data.CommandType.StoredProcedure);
             while (await reader.ReadAsync())
             {
                 var user = new Users()
@@ -119,7 +119,7 @@ namespace WebMVC.DataProvider
         }
         public async Task<DataTable> GetUsersAsync()
         {
-            return await GetDataTable("procUsers_GetAll", System.Data.CommandType.StoredProcedure);
+            return await GetDataTableAsync("procUsers_GetAll", System.Data.CommandType.StoredProcedure);
         }
     }
 }

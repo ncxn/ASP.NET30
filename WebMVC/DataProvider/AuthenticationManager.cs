@@ -14,8 +14,8 @@ namespace WebMVC.DataProvider
     {
         public AuthenticationManager(MySqlAppDb db) : base(db)
         {
-
         }
+
         public async Task<LoginViewModel> LoginAsync(string email, string password)
         {
             List<MySqlParameter> paramerters = new List<MySqlParameter>()
@@ -24,7 +24,7 @@ namespace WebMVC.DataProvider
                 new MySqlParameter("p_user_password", Encryptor.Md5(password))
             };
 
-            var reader = await GetDataReader("usp_check_login_info", System.Data.CommandType.StoredProcedure, paramerters);
+            var reader = await GetDataReaderAsync("usp_check_login_info", System.Data.CommandType.StoredProcedure, paramerters);
 
             if (await reader.ReadAsync())
             {
@@ -40,6 +40,5 @@ namespace WebMVC.DataProvider
                 return null;
             }
         }
-
     }
 }
