@@ -6,30 +6,25 @@ using Microsoft.AspNetCore.Mvc;
 using WebMVC.Models;
 using WebMVC.DataProvider;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebMVC.Controllers
 {
+
     public class HomeController : Controller
     {
-        //private readonly ILogger<HomeController> _logger;
+        
         private readonly MySqlAppDb Db;
         public HomeController(MySqlAppDb db)
         {
             Db = db;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            //UserProvider userProvider = new UserProvider(Db);
-            //var user = await userProvider.GetUsersAsync();
-            return View();
+                      return View();
         }
-        [HttpDelete("{userName}")]
-        public IActionResult Delete(string userName)
-        {
-            return View();
-        }
-
+       
         public IActionResult Privacy()
         {
             return View();

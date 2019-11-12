@@ -2,8 +2,7 @@
 
 namespace WebMVC.Models
 {
-    public class Roles: IdentityRole
+    public class UserClaims: IdentityUserClaim<int>
     {
-     
     }
 }

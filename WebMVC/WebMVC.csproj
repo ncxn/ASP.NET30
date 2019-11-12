@@ -29,6 +29,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\ViewModel\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Identity\Data\" />
   </ItemGroup>
 
 </Project>

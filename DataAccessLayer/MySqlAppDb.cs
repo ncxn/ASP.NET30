@@ -5,7 +5,7 @@ namespace DataAccessLayer
 {
     public class MySqlAppDb : IDisposable
     {
-        public readonly MySqlConnection Connection;
+        public MySqlConnection Connection;
 
         public MySqlAppDb(string connectionString)
         {

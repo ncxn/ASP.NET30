@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebMVC.ViewModels
+namespace WebMVC.Areas.Identity.ViewMedels
 {
     public class LoginViewModel
     {
         [Display(Name = "Thư điện tử")]
         [DataType(DataType.EmailAddress)]
-        [Required(ErrorMessage ="Phải nhập Email")]
+        [Required(ErrorMessage = "Phải nhập Email")]
         public string Email { get; set; }
 
         [Display(Name = "Mật khẩu")]
@@ -16,7 +16,7 @@ namespace WebMVC.ViewModels
 
         [Display(Name = "Ghi nhớ")]
         public bool RememberMe { get; set; }
-        
+
         public string ReturnUrl { get; set; }
     }
 }

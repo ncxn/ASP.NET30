@@ -12,7 +12,7 @@ namespace WebMVC.DataProvider
     public class DataProviderBase
     {
         private MySqlAppDb Db { get; set; }
-        public DataProviderBase(MySqlAppDb db)
+        public DataProviderBase(MySqlAppDb db = null)
         {
             Db = db;
         }
@@ -50,13 +50,16 @@ namespace WebMVC.DataProvider
         }
         public async Task<DataTable> GetDataTableAsync(string commandText, CommandType commandType, List<MySqlParameter> parameters = null)
         {
-            await Db.Connection.OpenAsync();
             using var cmd = Db.Connection.CreateCommand();
             cmd.CommandText = commandText;
             cmd.CommandType = commandType;
             if (parameters != null)
                 cmd.Parameters.AddRange(parameters.ToArray());
             using var adapter = new MySqlDataAdapter(cmd);
+            if (Db.Connection.State == ConnectionState.Closed)
+            {
+                await Db.Connection.OpenAsync();
+            }
             DataTable dt = new DataTable();
             adapter.Fill(dt);
             return dt;
@@ -68,7 +71,10 @@ namespace WebMVC.DataProvider
             cmd.CommandType = commandType;
             if (parameters != null)
                 cmd.Parameters.AddRange(parameters.ToArray());
-            await Db.Connection.OpenAsync();
+            if (Db.Connection.State != ConnectionState.Open)
+            {
+                await Db.Connection.OpenAsync();
+            }
             return await cmd.ExecuteReaderAsync();
         }
         public async Task<object> GetScalarValueAsync(string commandText, CommandType commandType, List<MySqlParameter> parameters = null)
@@ -78,7 +84,10 @@ namespace WebMVC.DataProvider
             cmd.CommandType = commandType;
             if (parameters != null)
                 cmd.Parameters.AddRange(parameters.ToArray());
-            await Db.Connection.OpenAsync();
+            if (Db.Connection.State == ConnectionState.Closed)
+            {
+                await Db.Connection.OpenAsync();
+            }
             return await cmd.ExecuteScalarAsync();
         }
         public async Task<int> ExecuteNonQueryAsync(string commandText, CommandType commandType, List<MySqlParameter> parameters = null)
@@ -89,14 +98,20 @@ namespace WebMVC.DataProvider
             cmd.CommandType = commandType;
             if (parameters != null)
                 cmd.Parameters.AddRange(parameters.ToArray());
-            await Db.Connection.OpenAsync();
+            if (Db.Connection.State == ConnectionState.Closed)
+            {
+                await Db.Connection.OpenAsync();
+            }
             result = await cmd.ExecuteNonQueryAsync();
             return result;
         }
         public async Task<int> ExecuteNonQueryWithTransactionAsync(string commandText, CommandType commandType, List<MySqlParameter> parameters = null)
         {
             int result;
-            await Db.Connection.OpenAsync();
+            if (Db.Connection.State == ConnectionState.Closed)
+            {
+                await Db.Connection.OpenAsync();
+            }
             var txn = await Db.Connection.BeginTransactionAsync();
             try
             {
