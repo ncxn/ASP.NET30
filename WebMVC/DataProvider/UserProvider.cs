@@ -19,7 +19,7 @@ namespace WebMVC.DataProvider
 
         public UserProvider(MySqlAppDb db) : base(db)
         {
-            //GetUserAsync();
+            GetUserAsync();
         }
 
         private async void GetUserAsync()
@@ -38,6 +38,7 @@ namespace WebMVC.DataProvider
                 };
                 UserCls.Add(user);
             }
+            await reader.CloseAsync();
             userColection = UserCls;
         }
 
