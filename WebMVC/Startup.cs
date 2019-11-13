@@ -25,11 +25,11 @@ namespace WebMVC
             services.AddTransient<IPasswordHasher<AppUser>, UserProvider>();
             services.AddIdentity<AppUser, AppRole>()
                     .AddDefaultTokenProviders();
-             services.AddTransient<IUserStore<AppUser>, UserProvider>();
-             services.AddTransient<IRoleStore<AppRole>, RoleProvider>();
+            services.AddTransient<IUserStore<AppUser>, UserProvider>();
+            services.AddTransient<IRoleStore<AppRole>, RoleProvider>();
 
             var connectionString = Configuration.GetSection("DbConnection:ConnectionString").Value;
-            services.AddTransient(App => new MySqlAppDb(connectionString));
+            services.AddTransient<MySqlAppDb>(_ => new MySqlAppDb(connectionString));
 
             services.AddControllersWithViews();
             services.AddSession();
@@ -62,7 +62,6 @@ namespace WebMVC
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();

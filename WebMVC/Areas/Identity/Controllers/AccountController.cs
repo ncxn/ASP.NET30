@@ -62,15 +62,17 @@ namespace WebMVC.Areas.Identity.Controllers
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
+
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
+                    if (returnUrl != null) { 
                     return RedirectToLocal(returnUrl);
+                    }
+                    return  RedirectToAction("index", "Home", new { area = "" });
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -88,7 +90,6 @@ namespace WebMVC.Areas.Identity.Controllers
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -129,7 +130,6 @@ namespace WebMVC.Areas.Identity.Controllers
                 AddErrors(result);
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -141,7 +141,7 @@ namespace WebMVC.Areas.Identity.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation(4, "User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(Login), nameof(AccountController));
         }
 
         //

@@ -5,26 +5,23 @@ using Microsoft.AspNetCore.Identity;
 using System.Threading;
 using System.Threading.Tasks;
 using WebMVC.Areas.Identity.Models;
-using System.Data.Common;
 using System.Collections.Generic;
-using MySql.Data.MySqlClient;
 using System.Data;
-using System.Linq;
 
 namespace WebMVC.DataProvider
 {
     public class UserProvider : DataProviderBase, IUserStore<AppUser>, IUserPasswordStore<AppUser>, IPasswordHasher<AppUser>
     {
-        private List<AppUser> userColection;
-
+       
         public UserProvider(MySqlAppDb db) : base(db)
         {
-            GetUserAsync();
+         
         }
 
-        private async void GetUserAsync()
+        public async Task<IEnumerable<AppUser>> GetUserAsync()
         {
-            var UserCls = new List<AppUser>();
+            var Users = new List<AppUser>();
+
             using var reader = await GetDataReaderAsync("usp_users_Identity_select_all", System.Data.CommandType.StoredProcedure);
             
             while (await reader.ReadAsync())
@@ -36,10 +33,10 @@ namespace WebMVC.DataProvider
                     PasswordHash = await reader.GetFieldValueAsync<string>(2),
                     UserName= await reader.GetFieldValueAsync<string>(3)
                 };
-                UserCls.Add(user);
+                Users.Add(user);
             }
             await reader.CloseAsync();
-            userColection = UserCls;
+           return Users;
         }
 
         public async Task<IdentityResult> CreateAsync(AppUser user, CancellationToken cancellationToken)
@@ -75,13 +72,26 @@ namespace WebMVC.DataProvider
         {
             cancellationToken.ThrowIfCancellationRequested();
             if (userId == null) throw new ArgumentNullException(nameof(userId));
-            var user = await Task.Run(() => userColection.SingleOrDefault(x => x.Id == userId));
 
-            if (user == null)
-                return null;
-            
-            user.PasswordHash = null;
-            return user;
+            var strSQL = "usp_users_Identity_select_byId";
+            string[] paraName = new[] { "p_userId" };
+            object[] paraValue = new object[] { userId };
+            var parameters = GetParameter(paraName, paraValue);
+            var reader = await GetDataReaderAsync(strSQL, CommandType.StoredProcedure, parameters);
+
+            if (await reader.ReadAsync())
+            {
+                var user = new AppUser()
+                {
+                    Id = await reader.GetFieldValueAsync<string>(0),
+                    Email = await reader.GetFieldValueAsync<string>(1),
+                    PasswordHash = await reader.GetFieldValueAsync<string>(2),
+                    UserName = await reader.GetFieldValueAsync<string>(2)
+                };
+                return user;
+            }
+            await reader.CloseAsync();
+            return null;
         }
 
         public async Task<AppUser> FindByNameAsync(string userName, CancellationToken cancellationToken)
@@ -101,7 +111,9 @@ namespace WebMVC.DataProvider
                 {
                     Id = await reader.GetFieldValueAsync<string>(0),
                     FullName = await reader.GetFieldValueAsync<string>(1),
-                    Email = await reader.GetFieldValueAsync<string>(2)
+                    Email = await reader.GetFieldValueAsync<string>(2),
+                    UserName= await reader.GetFieldValueAsync<string>(12),
+                    PasswordHash= await reader.GetFieldValueAsync<string>(4)
                 };
                 return user;             
             }

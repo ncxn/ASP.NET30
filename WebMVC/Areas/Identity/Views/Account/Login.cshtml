@@ -1,72 +1,58 @@
 ﻿@using WebMVC.Areas.Identity.ViewMedels
 @model LoginViewModel
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+<div class="login-box">
+    @ViewData["Message"]
+    <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]"
+          class="bg-white p-4 border bd-default win-shadow"
+          data-role="validator"
+          data-clear-invalid="2000"
+          data-on-error-form="invalidForm"
+          method="post">
 
-    <div class="cell-4 offset-4 border-1 border-info">
-        @ViewData["Message"]
-        <form class="bg-white p-4 border bd-default win-shadow"
-              action=""
-              data-role="validator"
-              data-clear-invalid="2000"
-              data-on-error-form="invalidForm"
-              method="post"
-              id="AccountLoginForm">
+        <img src="~/images/logo.png" class="place-right mt-3 mr-3">
+        <h2 class="mb-0">@ViewData["Title"]</h2>
+        <div class="text-muted mb-4">Đăng nhập vào ứng dụng</div>
+        <div asp-validation-summary="All" class="text-danger"></div>
 
-            <div class="form-group">
-                <input type="text" data-role="materialinput"
-                       name="Email"
-                       placeholder="Enter your email"
-                       data-icon="<span class='mif-envelop'>"
-                       data-label="User email"
-                       data-informer="Enter a valid email address"
-                       data-validate="required"
-                       data-cls-line="bg-cyan"
-                       data-cls-label="fg-cyan"
-                       data-cls-informer="fg-lightCyan"
-                       data-cls-icon="fg-darkCyan">
-                <span class="invalid_feedback">Please enter a valid email address</span>
-            </div>
-            <div class="form-group">
-                <input type="password" data-role="materialinput"
-                       name="Password"
-                       placeholder="Enter your password"
-                       data-icon="<span class='mif-key'>"
-                       data-label="PassWord"
-                       data-informer="Enter a valid password"
-                       data-validate="required"
-                       data-cls-line="bg-cyan"
-                       data-cls-label="fg-cyan"
-                       data-cls-informer="fg-lightCyan"
-                       data-cls-icon="fg-darkCyan">
-                <span class="invalid_feedback">Please enter a password</span>
-            </div>
-            <div class="form-group d-flex flex-align-center flex-justify-between">
-                <input type="checkbox" data-role="switch" data-material="true" data-caption="Ghi nhớ đăng nhập">
-                <button class="image-button flat-button">
-                    <span class="mif-enter icon"></span>
-                    <span class="caption">Đăng nhập</span>
-                </button>
-            </div>
-            <div class="text-center m-4">- OR -</div>
-            <div class="form-group">
-                <button class="image-button w-100 mt-1 bg-facebook fg-white" type="button">
-                    <span class="mif-facebook icon"></span>
-                    <span class="caption">Sign In using Facebook</span>
-                </button>
-                <button class="image-button w-100 mt-1 bg-github fg-white" type="button">
-                    <span class="mif-github icon"></span>
-                    <span class="caption">Sign In using GitHub</span>
-                </button>
-                <button class="image-button w-100 mt-1 bg-gitlab fg-white" type="button">
-                    <span class="mif-gitlab icon"></span>
-                    <span class="caption">Sign In using GitLab</span>
-                </button>
-            </div>
-            <div class="form-group border-top bd-default pt-2">
-                <a href="#" class="d-block">I forgot my password</a>
-                <a href="#" class="d-block">Register a new membership</a>
-            </div>
-        </form>
-    </div>
+        <div class="form-group">
+            <input asp-for="Email" data-role="input" placeholder="Thư điện tử" data-append="<span class='mif-envelop'></span>" data-validate="required">
+            <span class="invalid_feedback">Phải nhập email</span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Password" type="password" data-role="input" placeholder="Mật khẩu" data-append="<span class='mif-key'></span>" data-validate="required">
+            <span class="invalid_feedback">Phải nhập mật khẩu (không để trống)</span>
+        </div>
+        <div class="form-group d-flex flex-align-center flex-justify-between">
+            <input asp-for="RememberMe" type="checkbox" data-role="switch" data-material="true" data-caption="Ghi nhớ">
+            <button type="submit" class="image-button flat-button">
+                <span class="mif-enter icon"></span>
+                <span class="caption">Đăng nhập</span>
+            </button>
+        </div>
+        <div class="text-center mt-5 mb-5">- HOẶC -</div>
+        <div class="form-group border-top bd-default pt-2">
+            <a asp-action="LoginFacebook" asp-controller="Account" class="image-button w-100 mt-1 bg-facebook fg-white" type="button">
+                <span class="mif-facebook icon"></span>
+                <span class="caption">Sử dụng Facebook</span>
+            </a>
+            <button class="image-button w-100 mt-1 bg-github fg-white" type="button">
+                <span class="mif-github icon"></span>
+                <span class="caption">Sử dụng GitHub</span>
+            </button>
+            <button class="image-button w-100 mt-1 bg-gitlab fg-white" type="button">
+                <span class="mif-gitlab icon"></span>
+                <span class="caption">Sử dụng GitLab</span>
+            </button>
+        </div>
+        <div class="form-group border-top bd-default pt-2">
+            <a asp-action="ForgotPassword" asp-controller="Account" class="d-block" data-caption="Quên mật khẩu"></a>
+            <a asp-action="Register" asp-controller="Account" class="d-block" data-caption="Đăng ký mới"></a>
+        </div>
+    </form>
+</div>
 
 <script>
     function invalidForm() {

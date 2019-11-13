@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebMVC.Areas.Identity.Models
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="app-bar-container">
+        <a href="#" class="app-bar-item">
+            <img src="~/images/user.jpg" class="avatar">
+            <span class="ml-2 app-bar-name">@UserManager.GetUserName(User)</span>
+        </a>
+        <div class="user-block shadow-1" data-role="collapse" data-collapsed="true">
+            <div class="bg-darkCyan fg-white p-2 text-center">
+                <img src="images/jek_vorobey.jpg" class="avatar">
+                <div class="h4 mb-0">Jack Sparrow</div>
+                <div>Pirate captain</div>
+            </div>
+            <div class="bg-white d-flex flex-justify-between flex-equal-items p-2">
+                <button class="button flat-button">Followers</button>
+                <button class="button flat-button">Sales</button>
+                <button class="button flat-button">Friends</button>
+            </div>
+            <div class="bg-white d-flex flex-justify-between flex-equal-items p-2 bg-light">
+                <a asp-area="Identity" asp-controller="Account" asp-action="Manager" class="button mr-1">Quản lý tài khoản</a>
+                <form method="post" asp-area="Identity" asp-controller="Account" asp-action="Logout">
+                    <button type="submit" class="button ml-1">Thoát</button>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="app-bar-container">
+        <a asp-area="Identity" asp-controller="Account" asp-action="Register" class="app-bar-item"> Đăng ký</a>
+        <a asp-area="Identity" asp-controller="Account" asp-action="Login" class="app-bar-item"> Đăng nhập</a>
+    </div>
+}
+
