@@ -8,21 +8,33 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <div class="app-bar-container">
-        <a href="#" class="app-bar-item">
-            <img src="~/images/user.jpg" class="avatar">
-            <span class="ml-2 app-bar-name">@UserManager.GetUserName(User)</span>
+        <a href="#" class="app-bar-item dropdown-toggle">
+            @*<img src="~/images/user.jpg" class="avatar">*@
+            <span class="app-bar-name">@UserManager.GetUserName(User)</span>
         </a>
-        <div class="user-block shadow-1" data-role="collapse" data-collapsed="true">
-            <div class="bg-darkCyan fg-white p-2 text-center">
-                <img src="images/jek_vorobey.jpg" class="avatar">
-                <div class="h4 mb-0">Jack Sparrow</div>
-                <div>Pirate captain</div>
+        <div class="d-menu" data-role="dropdown">
+            <div class="social-box">
+                <div class="header bg-cyan fg-white">
+                    <img src="~/images/user.jpg" class="avatar">
+                    <div class="title">Group</div>
+                    <div class="subtitle">job</div>
+                </div>
+                <ul class="skills">
+                    <li>
+                        <div class="text-bold">6</div>
+                        <div>AWARDS</div>
+                    </li>
+                    <li>
+                        <div class="text-bold">4</div>
+                        <div>NOMINATIONS</div>
+                    </li>
+                    <li>
+                        <div class="text-bold">36</div>
+                        <div>FILMS</div>
+                    </li>
+                </ul>
             </div>
-            <div class="bg-white d-flex flex-justify-between flex-equal-items p-2">
-                <button class="button flat-button">Followers</button>
-                <button class="button flat-button">Sales</button>
-                <button class="button flat-button">Friends</button>
-            </div>
+            
             <div class="bg-white d-flex flex-justify-between flex-equal-items p-2 bg-light">
                 <a asp-area="Identity" asp-controller="Account" asp-action="Manager" class="button mr-1">Quản lý tài khoản</a>
                 <form method="post" asp-area="Identity" asp-controller="Account" asp-action="Logout">
