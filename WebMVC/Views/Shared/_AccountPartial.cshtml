@@ -7,48 +7,55 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <div class="app-bar-container">
-        <a href="#" class="app-bar-item dropdown-toggle">
-            @*<img src="~/images/user.jpg" class="avatar">*@
-            <span class="app-bar-name">@UserManager.GetUserName(User)</span>
-        </a>
-        <div class="d-menu" data-role="dropdown">
-            <div class="social-box">
-                <div class="header bg-cyan fg-white">
-                    <img src="~/images/user.jpg" class="avatar">
-                    <div class="title">Group</div>
-                    <div class="subtitle">job</div>
-                </div>
-                <ul class="skills">
-                    <li>
-                        <div class="text-bold">6</div>
-                        <div>AWARDS</div>
-                    </li>
-                    <li>
-                        <div class="text-bold">4</div>
-                        <div>NOMINATIONS</div>
-                    </li>
-                    <li>
-                        <div class="text-bold">36</div>
-                        <div>FILMS</div>
-                    </li>
-                </ul>
+    <ul class="app-bar-menu">
+        <li class="icon-application">
+            <a href="#" class="app-bar-item dropdown-toggle no-marker" id="dropdown_toggle_1">
+                @*<img src="~/images/user.jpg" class="avatar">*@
+                <span class="mif-user icon mr-1"></span><span class="app-bar-name">@UserManager.GetUserName(User)</span>
+            </a>
+        </li>
+    </ul>
+    <div class="d-menu" data-role="dropdown" data-toggle-element="#dropdown_toggle_1">
+        <div class="social-box">
+            <div class="header bg-cyan fg-white mt-0">
+                <img src="~/images/user.jpg" class="avatar">
+                <div class="title">Nhóm</div>
+                <div class="subtitle">Chức vụ</div>
             </div>
-            
-            <div class="bg-white d-flex flex-justify-between flex-equal-items p-2 bg-light">
-                <a asp-area="Identity" asp-controller="Account" asp-action="Manager" class="button mr-1">Quản lý tài khoản</a>
-                <form method="post" asp-area="Identity" asp-controller="Account" asp-action="Logout">
-                    <button type="submit" class="button ml-1">Thoát</button>
-                </form>
-            </div>
+            <ul class="skills">
+                <li>
+                    <div class="text-bold">6</div>
+                    <div>Điểm</div>
+                </li>
+                <li>
+                    <div class="text-bold">4</div>
+                    <div>Kinh nghiệm</div>
+                </li>
+                <li>
+                    <div class="text-bold">36</div>
+                    <div>Đẳng cấp</div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="bg-white d-flex flex-justify-between flex-equal-items p-2 bg-light">
+            <form method="post" asp-area="Identity" asp-controller="Account" asp-action="Logout">
+                <button asp-area="Identity" asp-controller="Account" asp-action="Manager" class="button ml-1">Tài khoản</button>
+                <button type="submit" class="button ml-1">Thoát</button>
+            </form>
         </div>
     </div>
+
 }
 else
 {
-    <div class="app-bar-container">
-        <a asp-area="Identity" asp-controller="Account" asp-action="Register" class="app-bar-item"> Đăng ký</a>
-        <a asp-area="Identity" asp-controller="Account" asp-action="Login" class="app-bar-item"> Đăng nhập</a>
-    </div>
+    <ul class="app-bar-menu">
+        <li>
+            <a asp-area="Identity" asp-controller="Account" asp-action="Register" class="app-bar-item"><span class="mif-user-minus icon mr-1"></span>Đăng ký</a>
+        </li>
+        <li>
+            <a asp-area="Identity" asp-controller="Account" asp-action="Login" class="app-bar-item"><span class="icon mif-enter mr-1"></span>Đăng nhập</a>
+        </li>
+    </ul>
 }
 

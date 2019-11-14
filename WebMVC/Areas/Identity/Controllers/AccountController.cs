@@ -141,7 +141,7 @@ namespace WebMVC.Areas.Identity.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation(4, "User logged out.");
-            return RedirectToAction(nameof(Login), nameof(AccountController));
+            return RedirectToAction(nameof(Login), "Account");
         }
 
         //

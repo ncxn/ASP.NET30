@@ -2,9 +2,10 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-<div data-role="appbar"class="pos-absolute">
-    <div class="app-bar-container ml-auto">
-        @*@await Html.PartialAsync("~/Areas/Views/Menu/_AccountPartial.cshtml")*@
-        <partial name="_AccountPartial" />
+    <div data-role="appbar" class="pos-absolute" data-expand-point="md">
+        <a href="#" class="app-bar-item d-block d-none-lg" id="paneToggle"><span class="mif-menu"></span></a>
+        <div class="ml-auto">
+            @*@await Html.PartialAsync("_LogInPartial")*@
+            @await Html.PartialAsync("_AccountPartial")
+        </div>
     </div>
-</div>
