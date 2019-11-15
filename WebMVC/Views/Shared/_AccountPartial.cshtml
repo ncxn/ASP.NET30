@@ -7,45 +7,46 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <ul class="app-bar-menu">
-        <li class="icon-application">
-            <a href="#" class="app-bar-item dropdown-toggle no-marker" id="dropdown_toggle_1">
-                @*<img src="~/images/user.jpg" class="avatar">*@
-                <span class="mif-user icon mr-1"></span><span class="app-bar-name">@UserManager.GetUserName(User)</span>
-            </a>
-        </li>
-    </ul>
-    <div class="d-menu" data-role="dropdown" data-toggle-element="#dropdown_toggle_1">
-        <div class="social-box">
-            <div class="header bg-cyan fg-white mt-0">
-                <img src="~/images/user.jpg" class="avatar">
-                <div class="title">Nhóm</div>
-                <div class="subtitle">Chức vụ</div>
+    <div class="app-bar-container">
+        <ul class="app-bar-menu">
+            <li class="icon-application">
+                <a href="#" class="app-bar-item dropdown-toggle no-marker" id="dropdown_toggle_1">
+                    @*<img src="~/images/user.jpg" class="avatar">*@
+                    <span class="mif-user icon mr-1"></span><span class="app-bar-name">@(User.FindFirst("FullName").Value)</span>
+                </a>
+            </li>
+        </ul>
+        <div class="d-menu put-right" data-role="dropdown" data-toggle-element="#dropdown_toggle_1">
+            <div class="social-box">
+                <div class="header bg-cyan fg-white mt-0">
+                    <img src="~/images/user.jpg" class="avatar">
+                    <div class="title">Nhóm</div>
+                    <div class="subtitle">Chức vụ</div>
+                </div>
+                <ul class="skills">
+                    <li>
+                        <div class="text-bold">6</div>
+                        <div>Điểm</div>
+                    </li>
+                    <li>
+                        <div class="text-bold">4</div>
+                        <div>Kinh nghiệm</div>
+                    </li>
+                    <li>
+                        <div class="text-bold">36</div>
+                        <div>Đẳng cấp</div>
+                    </li>
+                </ul>
             </div>
-            <ul class="skills">
-                <li>
-                    <div class="text-bold">6</div>
-                    <div>Điểm</div>
-                </li>
-                <li>
-                    <div class="text-bold">4</div>
-                    <div>Kinh nghiệm</div>
-                </li>
-                <li>
-                    <div class="text-bold">36</div>
-                    <div>Đẳng cấp</div>
-                </li>
-            </ul>
-        </div>
 
-        <div class="bg-white d-flex flex-justify-between flex-equal-items p-2 bg-light">
-            <form method="post" asp-area="Identity" asp-controller="Account" asp-action="Logout">
-                <button asp-area="Identity" asp-controller="Account" asp-action="Manager" class="button ml-1">Tài khoản</button>
-                <button type="submit" class="button ml-1">Thoát</button>
-            </form>
+            <div class="bg-white d-flex flex-justify-between flex-equal-items p-2 bg-light">
+                <form method="post" asp-area="Identity" asp-controller="Account" asp-action="Logout">
+                    <button asp-area="Identity" asp-controller="Account" asp-action="Manager" class="button ml-1">Tài khoản</button>
+                    <button type="submit" class="button ml-1">Thoát</button>
+                </form>
+            </div>
         </div>
     </div>
-
 }
 else
 {

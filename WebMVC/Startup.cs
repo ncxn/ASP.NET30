@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebMVC.Areas.Identity.Models;
 using WebMVC.DataProvider;
+using WebMVC.Extensions;
 using WebMVC.Services;
 
 namespace WebMVC
@@ -24,7 +25,8 @@ namespace WebMVC
         {
             services.AddTransient<IPasswordHasher<AppUser>, UserProvider>();
             services.AddIdentity<AppUser, AppRole>()
-                    .AddDefaultTokenProviders();
+                    .AddDefaultTokenProviders()
+                    .AddClaimsPrincipalFactory<ClaimsPrincipalFactoryExtension>();
             services.AddTransient<IUserStore<AppUser>, UserProvider>();
             services.AddTransient<IRoleStore<AppRole>, RoleProvider>();
 
