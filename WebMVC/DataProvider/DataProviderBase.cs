@@ -11,8 +11,8 @@ namespace WebMVC.DataProvider
 {
     public class DataProviderBase
     {
-        public MySqlAppDb Db { get; set; }
-        public DataProviderBase(MySqlAppDb db = null)
+        internal MySqlAppDb Db { get; set; }
+        internal DataProviderBase(MySqlAppDb db)
         {
             Db = db;
         }

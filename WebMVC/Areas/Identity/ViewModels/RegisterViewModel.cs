@@ -12,7 +12,7 @@ namespace WebMVC.Areas.Identity.ViewMedels
         public string FullName { get; set; }
 
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "{0} không đúng định dạng")]
         [Display(Name = "Thư điện tử")]
         public string Email { get; set; }
 

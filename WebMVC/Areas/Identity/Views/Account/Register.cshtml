@@ -35,8 +35,8 @@
         </div>
         <div class="form-group d-flex flex-align-center flex-justify-between">
             <input type="checkbox" data-validate="required" data-role="checkbox" data-caption="Chấp nhận sử dụng <a href='#'>Dịch vụ</a>">
-            
-            <button type="submit" class="image-button flat-button">
+
+            <button type="submit" class="image-button flat-button" onclick="showNotify();">
                 <span class="mif-enter icon"></span>
                 <span class="caption">Đăng ký</span>
             </button>
@@ -50,6 +50,18 @@
 @*@section Scripts {
         @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
     }*@
+<script>
+    function showNotify() {
+       var notify = Metro.notify;
+        notify.setup({
+            width: 300,
+            duration: 1000,
+            animation: 'easeOutBounce'
+        });
+        notify.create("Thử nghiệm thông báo lỗi","Thông báo");
+        notify.reset();
+    }
+</script>
 <script>
     function invalidForm() {
         var form = $(this);
