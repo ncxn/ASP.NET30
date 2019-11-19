@@ -29,6 +29,8 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\ViewModel\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\docs\Data\" />
+    <Folder Include="Areas\docs\Models\" />
     <Folder Include="Areas\Identity\Data\" />
   </ItemGroup>
 
