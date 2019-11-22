@@ -11,9 +11,9 @@ namespace WebMVC.DataProvider
 {
     public class RoleProvider: DataProviderBase, IRoleStore<AppRole>
     {
-        private readonly MySqlAppDb DB;
+        private readonly DataAccessLayer.MySqlConnection DB;
 
-        public RoleProvider(MySqlAppDb db):base(db)
+        public RoleProvider(DataAccessLayer.MySqlConnection db):base(db)
         {
             DB = db;
         }

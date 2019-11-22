@@ -1,19 +1,18 @@
 ﻿using System;
-using DataAccessLayer;
-using SecurityHelper;
 using Microsoft.AspNetCore.Identity;
 using System.Threading;
 using System.Threading.Tasks;
 using WebMVC.Areas.Identity.Models;
 using System.Collections.Generic;
 using System.Data;
+using DataAccessLayer;
 
 namespace WebMVC.DataProvider
 {
     public class UserProvider : DataProviderBase, IUserStore<AppUser>, IUserPasswordStore<AppUser>, IPasswordHasher<AppUser>
     {
        
-        public UserProvider(MySqlAppDb db) : base(db)
+        public UserProvider(AppDb db) : base(db)
         {
          
         }
@@ -186,12 +185,12 @@ namespace WebMVC.DataProvider
        
         public string HashPassword(AppUser user, string password)
         {
-            return Encryptor.Md5(password);
+            return password;
         }
 
         public PasswordVerificationResult VerifyHashedPassword(AppUser user, string hashedPassword, string providedPassword)
         {
-            if (hashedPassword == Encryptor.Md5(providedPassword))
+            if (hashedPassword == providedPassword)
             {
                 return PasswordVerificationResult.Success;
             }

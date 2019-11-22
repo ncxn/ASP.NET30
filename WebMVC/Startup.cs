@@ -30,8 +30,7 @@ namespace WebMVC
             services.AddTransient<IUserStore<AppUser>, UserProvider>();
             services.AddTransient<IRoleStore<AppRole>, RoleProvider>();
 
-            var connectionString = Configuration.GetSection("DbConnection:ConnectionString").Value;
-            services.AddTransient<MySqlAppDb>(_ => new MySqlAppDb(connectionString));
+            services.AddTransient<AppDb>(_ => new AppDb(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllersWithViews();
             services.AddSession();

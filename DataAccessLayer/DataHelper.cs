@@ -4,15 +4,14 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
-using DataAccessLayer;
 using MySql.Data.MySqlClient;
 
-namespace WebMVC.DataProvider
+namespace DataAccessLayer
 {
-    public class DataProviderBase
+    public class DataHelper
     {
-        internal AppDb Db { get; set; }
-        internal DataProviderBase(AppDb db)
+        public AppDb Db { get; set; }
+        public DataHelper(AppDb db)
         {
             Db = db;
         }
@@ -94,7 +93,7 @@ namespace WebMVC.DataProvider
                 cmd.Parameters.AddRange(parameters.ToArray());
             await Db.Connection.OpenAsync();
             result = await cmd.ExecuteNonQueryAsync();
-            await Db.Connection.CloseAsync();
+  
             return result;
         }
         public async Task<int> ExecuteNonQueryWithTransactionAsync(string commandText, CommandType commandType, List<MySqlParameter> parameters = null)

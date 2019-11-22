@@ -14,8 +14,8 @@ namespace WebMVC.Controllers
     public class HomeController : Controller
     {
         
-        private readonly MySqlAppDb Db;
-        public HomeController(MySqlAppDb db)
+        private readonly MySqlConnection Db;
+        public HomeController(MySqlConnection db)
         {
             Db = db;
         }
