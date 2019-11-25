@@ -4,15 +4,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Application.Command;
+using Application.CommandHandler;
+using Application.Interfaces;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WebMVC.Areas.docs.Controllers
 {
     [Area("Docs")]
     public class AppGuideController : Controller
     {
+        private IMediator _mediator;
+
+        protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
         // GET: AppGuide
-        public ActionResult Index()
+        public  ActionResult Index()
         {
+            
+           // await Mediator.Send(command);
             return View();
         }
 
@@ -31,18 +41,11 @@ namespace WebMVC.Areas.docs.Controllers
         // POST: AppGuide/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult<bool>> Create(CreateNodeCommand command)
         {
-            try
-            {
-                // TODO: Add insert logic here
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return await Mediator.Send(command);
+           
         }
 
         // GET: AppGuide/Edit/5

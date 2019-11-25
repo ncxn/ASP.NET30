@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Data;
-using DataAccessLayer;
 using Microsoft.AspNetCore.Identity;
-using MySql.Data.MySqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 using WebMVC.Areas.Identity.Models;
+using DataAccessLayer;
 
 namespace WebMVC.DataProvider
 {
     public class RoleProvider: DataProviderBase, IRoleStore<AppRole>
     {
-        private readonly DataAccessLayer.MySqlConnection DB;
+        private readonly AppDb DB;
 
-        public RoleProvider(DataAccessLayer.MySqlConnection db):base(db)
+        public RoleProvider(AppDb db):base(db)
         {
             DB = db;
         }

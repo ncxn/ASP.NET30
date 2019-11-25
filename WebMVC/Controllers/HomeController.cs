@@ -1,30 +1,24 @@
-﻿using System.Data;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using DataAccessLayer;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Models;
-using WebMVC.DataProvider;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
 
 namespace WebMVC.Controllers
 {
 
     public class HomeController : Controller
     {
-        
-        private readonly MySqlConnection Db;
-        public HomeController(MySqlConnection db)
+
+
+        public HomeController()
         {
-            Db = db;
+
         }
 
         public IActionResult Index()
         {
-                      return View();
+            return View();
         }
-       
+
         public IActionResult Privacy()
         {
             return View();

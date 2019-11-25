@@ -1,3 +1,4 @@
+using Application;
 using DataAccessLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +35,9 @@ namespace WebMVC
 
             services.AddControllersWithViews();
             services.AddSession();
+            
+            services.AddDataAccessLayer();
+            services.AddApplication();
 
             services.AddTransient(o =>
             new MessageServices(
