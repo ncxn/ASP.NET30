@@ -2,8 +2,7 @@
 
 namespace Domain.Events
 {
-    public interface IEventHandler<in TDomainEvent> : INotificationHandler<TDomainEvent>
-        where TDomainEvent : DomainEvent
+    public interface IEventHandler<in T> : INotificationHandler<T> where T : Event
     {
     }
 }

@@ -1,30 +1,37 @@
-﻿using System;
+﻿using MediatR;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Domain.Events;
 
-namespace Domain.Notification
+namespace Domain.Notifications
 {
-    public class DomainNotificationHandler: IEventHandler<DomainNotification>
+    public class DomainNotificationHandler : INotificationHandler<DomainNotification>
     {
-        public ReadOnlyCollection<DomainNotification> Notifications => _notifications.AsReadOnly();
         private List<DomainNotification> _notifications;
+
         public DomainNotificationHandler()
         {
             _notifications = new List<DomainNotification>();
         }
-        public Task Handle(DomainNotification notification, CancellationToken cancellationToken)
+
+        public Task Handle(DomainNotification message, CancellationToken cancellationToken)
         {
-            _notifications.Add(notification);
+            _notifications.Add(message);
+
             return Task.CompletedTask;
         }
+
+        public virtual List<DomainNotification> GetNotifications()
+        {
+            return _notifications;
+        }
+
         public virtual bool HasNotifications()
         {
-            return Notifications.Count <= 0;
+            return GetNotifications().Any();
         }
+
         public void Dispose()
         {
             _notifications = new List<DomainNotification>();
