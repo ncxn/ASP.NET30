@@ -16,7 +16,9 @@ namespace DataAccessLayer
             //services.AddMediatR(Assembly.GetExecutingAssembly());
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
-            services.AddTransient<INodeResponsitory<Node>, NodeRepository>();
+            //Register Responsitory
+            services.AddTransient<INodeResponsitory<NodeModel>, NodeRepository>();
+            services.AddTransient<IEventStoreResponsitory<EventStore>, EventStoreResponsitory>();
             return services;
         }
     }

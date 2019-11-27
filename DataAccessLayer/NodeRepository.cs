@@ -6,43 +6,34 @@ using Domain.Entities;
 
 namespace DataAccessLayer
 {
-    public class NodeRepository : INodeResponsitory<Node>
+    public class NodeRepository : INodeResponsitory
     {
-        public Task<Node> Creare(Node entity)
-        {
-            //fake to test
-            var rs= new Node
-            {
-                Id ="0",
-                Title="Thử nghiệm",
-                Content ="Nội dung thử nghiệm",
-                Url="/docs/node/0"
-            };
-            return Task.FromResult(rs);
-            //return rs;
-        }
-
-        public Task<Node> Delete(int id)
+        public Task<bool> Creare(NodeModel entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Node> Get(int id)
+        public Task<bool> Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<Node>> GetAll()
+        public Task<NodeModel> Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Node>> ReadOnlyGetAll()
+        public Task<List<NodeModel>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<Node> Update(Node entity)
+        public Task<IEnumerable<NodeModel>> ReadOnlyGetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Update(NodeModel entity)
         {
             throw new NotImplementedException();
         }

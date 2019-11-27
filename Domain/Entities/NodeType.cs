@@ -7,7 +7,7 @@ namespace Domain.Entities
     {
         public NodeType()
         {
-            Nodes = new HashSet<Node>();
+            Nodes = new HashSet<NodeModel>();
         }
 
         public NodeType(Guid id, string type, string decs)
@@ -21,7 +21,7 @@ namespace Domain.Entities
         public string Type { get; set; }
         public string Decs { get; set; }
         public string Url { get; set; }
-        public ICollection<Node> Nodes { get; set; }
+        public ICollection<NodeModel> Nodes { get; set; }
  
     }
 }

@@ -18,7 +18,7 @@ namespace Application.NodeTypes.CreateCommand
     {
         private readonly INodeTypeResponsitory NodeTypeResponsitory;
         private readonly IMediatorHandler Bus;
-        public NodeTypeCreateHandler(INodeTypeResponsitory nodeTypeResponsitory, IUnitOfWork uow, IMediatorHandler bus, INotificationHandler<DomainNotification> notifications) : base(uow, bus, notifications)
+        public NodeTypeCreateHandler(INodeTypeResponsitory nodeTypeResponsitory, IUnitOfWork uow, IMediatorHandler bus, INotificationHandler<DomainNotification> notifications) : base(bus, notifications)
         {
             NodeTypeResponsitory = nodeTypeResponsitory;
             Bus = bus;

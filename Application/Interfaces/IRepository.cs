@@ -8,8 +8,8 @@ namespace Application.Interfaces
         Task<T> Get(int id);
         Task<List<T>> GetAll();
         Task<IEnumerable<T>> ReadOnlyGetAll();
-        Task<T> Creare(T entity);
-        Task<T> Update(T entity);
-        Task<T> Delete(int id);
+        Task<bool> Creare(T entity);
+        Task<bool> Update(T entity);
+        Task<bool> Delete(int id);
     }
 }

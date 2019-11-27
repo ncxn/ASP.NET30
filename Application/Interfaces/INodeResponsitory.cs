@@ -4,13 +4,8 @@ using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
-    public interface INodeResponsitory<T> where T : class
+    public interface INodeResponsitory: IRepository<NodeModel>
     {
-        Task<T> Get(int id);
-        Task<List<T>> GetAll();
-        Task<IEnumerable<T>> ReadOnlyGetAll();
-        Task<T> Creare(T entity);
-        Task<T> Update(T entity);
-        Task<T> Delete(int id);
+       
     }
 }
