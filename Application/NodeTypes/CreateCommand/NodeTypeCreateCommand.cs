@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Domain.Commands;
 using System;
 
 namespace Application.NodeTypes.CreateCommand

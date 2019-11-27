@@ -2,11 +2,11 @@
 using MediatR;
 using System;
 
-namespace Domain.EventStored
+namespace Domain.EventStore
 {
-    public class EventStore : INotification, IRequest<bool>
+    public class EventStore : Event, INotification, IRequest<bool>
     {
-        public EventStore(Events.EventStore theEvent, string content, string user)
+        public EventStore(Event @event, string content, string user)
         {
             Id = Guid.NewGuid();
             Content = content;
@@ -18,5 +18,10 @@ namespace Domain.EventStored
         public Guid Id { get; private set; }
         public string Content { get; set; }
         public string User { get; private set; }
+
+        public override void Flatten()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

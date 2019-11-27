@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using MediatR;
 using System.Reflection;
+using Domain.Bus;
+using Application.Common;
 
 namespace Application
 {
@@ -13,7 +15,7 @@ namespace Application
             //services.AddMediatR(Assembly.GetExecutingAssembly());
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
-            services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddTransient<IMediatorHandler, CommandBus>();
             return services;
         }
     }

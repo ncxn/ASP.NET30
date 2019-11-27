@@ -8,7 +8,7 @@ namespace Domain.Bus
     public interface IMediatorHandler
     {
         Task SendCommand<T>(T command) where T : Command;
-        Task RaiseEvent<T>(T @event) where T : EventStore;
-        Task Notification<T>(T @notification) where T : DomainNotification;
+        Task RaiseEvent<T>(T @event) where T : Event;
+        //Task Notification<T>(T notification) where T : DomainNotification;
     }
 }

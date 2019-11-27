@@ -1,8 +1,9 @@
 ﻿using Application.Common;
 using Application.Interfaces;
+using Domain.Bus;
 using Domain.Commands;
 using Domain.Entities;
-using Domain.Notification;
+using Domain.Notifications;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace Application.NodeTypes.CreateCommand
             
             if (NodeTypeResponsitory.GetByType(Model.Type) != null)
             {
-                Bus.RaiseEvent(new DomainNotification(request.MessageType, "Dữ liệu đã có loại này!"));
+                Bus.RaiseEvent(new DomainNotification(request.Type, "Dữ liệu đã có loại này!"));
                 return Task.FromResult(false);
             }
 
