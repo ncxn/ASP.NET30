@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System.Threading.Tasks;
 
-namespace Domain.EventStored
+namespace Domain.EventStore
 {
     public interface IEventStoreHandler<T>: INotificationHandler<T> where T : EventStore
     {

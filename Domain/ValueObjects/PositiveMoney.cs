@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Domain.Events;
-using Domain.Notification;
+using Domain.Notifications;
 
 namespace Domain.ValueObjects
 {

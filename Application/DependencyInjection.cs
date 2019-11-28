@@ -4,6 +4,8 @@ using MediatR;
 using System.Reflection;
 using Domain.Bus;
 using Application.Common;
+using Application.Interfaces;
+using Application.Node.NodeCreate;
 
 namespace Application
 {
@@ -15,7 +17,12 @@ namespace Application
             //services.AddMediatR(Assembly.GetExecutingAssembly());
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
-            services.AddTransient<IMediatorHandler, CommandBus>();
+
+            // Command Bus using MediatR
+            services.AddScoped<IMediatorHandler, CommandBus>();
+
+            // Command
+            services.AddScoped<IRequestHandler<NodeCreateCommand, bool>, NodeCreateHandler>();
             return services;
         }
     }

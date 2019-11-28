@@ -32,7 +32,7 @@ namespace Application.Node.NodeCreate
             var Model = new NodeModel(request.Id, request.Title, request.Content, request.Url, request.Url);
 
             if (await NodeResponsitory.Creare(Model))
-                await Bus.RaiseEvent(new DomainNotification(request.Type, "Dữ liệu đã có loại này!"));
+                await Bus.RaiseEvent(new DomainNotification(request.Type, "Tạo thành công"));
             return await Task.FromResult(true);
         }
     }

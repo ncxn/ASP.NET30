@@ -1,17 +1,25 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Application.Node.NodeCreate;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Domain.Bus;
+using Domain.Notifications;
 
 namespace WebMVC.Areas.docs.Controllers
 {
     [Area("Docs")]
-    public class AppGuideController : Controller
+    public class AppGuideController : BaseController
     {
-        private IMediator _mediator;
+        private readonly IMediatorHandler Bus;
 
-        protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
+        public AppGuideController(IMediatorHandler bus, INotificationHandler<DomainNotification> notifications): base(notifications)
+        {
+            Bus = bus;
+        }
+
+        // protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
         // GET: AppGuide
         public  ActionResult Index()
         {
@@ -35,11 +43,16 @@ namespace WebMVC.Areas.docs.Controllers
         // POST: AppGuide/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult<bool>> Create(CreateNodeCommand command)
+        public async Task<ActionResult<bool>> Create(NodeCreateCommand command)
         {
+            if (!ModelState.IsValid) return View(command);
+            await Bus.SendCommand(command);
 
-            return await Mediator.Send(command);
-           
+            if (IsValidOperation())
+                ViewBag.Sucesso = "Đăng ký thành công";
+
+            return View(command);
+                     
         }
 
         // GET: AppGuide/Edit/5

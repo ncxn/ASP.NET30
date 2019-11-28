@@ -1,5 +1,6 @@
 using Application;
 using DataAccessLayer;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -35,7 +36,8 @@ namespace WebMVC
 
             services.AddControllersWithViews();
             services.AddSession();
-            
+
+            services.AddMediatR(typeof(Startup));
             services.AddDataAccessLayer();
             services.AddApplication();
 

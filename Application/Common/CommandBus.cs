@@ -1,10 +1,8 @@
-﻿using Domain.Bus;
+﻿using Application.Interfaces;
+using Domain.Bus;
 using Domain.Commands;
 using Domain.Events;
-using Domain.EventStored;
-using Domain.Notifications;
 using MediatR;
-using System;
 using System.Threading.Tasks;
 
 namespace Application.Common
@@ -12,9 +10,9 @@ namespace Application.Common
     public sealed class CommandBus : IMediatorHandler
     {
         private readonly IMediator _mediator;
-        private readonly IEventStoreHandler _eventStore;
+        private readonly IEventStore _eventStore;
 
-        public CommandBus(IMediator mediator, EventStored.IEventStoreHandler eventStore)
+        public CommandBus(IMediator mediator, IEventStore eventStore)
         {
             _mediator = mediator;
             _eventStore = eventStore;

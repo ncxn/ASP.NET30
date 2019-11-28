@@ -15,7 +15,7 @@ namespace Domain.EventStore
 
         // Database Constructor
         protected EventStore() { }
-        public Guid Id { get; private set; }
+        //public Guid Id { get; private set; }
         public string Content { get; set; }
         public string User { get; private set; }
 

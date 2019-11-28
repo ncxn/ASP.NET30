@@ -1,5 +1,7 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Domain.Notifications;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -16,9 +18,12 @@ namespace DataAccessLayer
             //services.AddMediatR(Assembly.GetExecutingAssembly());
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
+
             //Register Responsitory
-            services.AddTransient<INodeResponsitory<NodeModel>, NodeRepository>();
-            services.AddTransient<IEventStoreResponsitory<EventStore>, EventStoreResponsitory>();
+            services.AddScoped<IEventStore, EventStoreResponsitory>();
+            services.AddTransient<INodeResponsitory, NodeRepository>();
+            // Domain - Events
+            services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
             return services;
         }
     }
